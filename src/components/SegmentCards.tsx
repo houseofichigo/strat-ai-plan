@@ -1,37 +1,47 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Building2, Rocket, TrendingUp, ArrowRight } from "lucide-react";
+import { Building2, Rocket, TrendingUp, Factory, ArrowRight } from "lucide-react";
 
 const segments = [
   {
-    id: "sme",
-    title: "Small Business",
-    description: "Growing companies with 1-50 employees looking to leverage AI for competitive advantage.",
+    id: "microenterprise",
+    title: "Microentreprises (MIC)",
+    description: "Très petites entreprises avec moins de 10 salariés cherchant à optimiser leurs processus.",
     icon: Rocket,
-    features: ["Cost-effective solutions", "Quick implementation", "Growth acceleration"],
-    link: "/for-companies",
+    features: ["Solutions simples", "Coût maîtrisé", "Déploiement rapide"],
+    link: "/start",
     color: "bg-gradient-to-br from-accent/10 to-accent/5",
     iconColor: "text-accent"
   },
   {
-    id: "enterprise",
-    title: "Medium Enterprise",
-    description: "Established businesses with 50-500 employees ready for digital transformation.",
+    id: "pme",
+    title: "Petites et Moyennes Entreprises (PME)",
+    description: "Entreprises de 10 à 250 salariés prêtes pour la transformation digitale.",
     icon: Building2,
-    features: ["Enterprise solutions", "Process optimization", "Scalable automation"],
-    link: "/for-companies",
+    features: ["Automatisation des processus", "Solutions évolutives", "ROI mesuré"],
+    link: "/start",
     color: "bg-gradient-to-br from-primary/10 to-primary/5",
     iconColor: "text-primary"
   },
   {
-    id: "investor",
-    title: "Investors",
-    description: "Evaluate portfolio companies' AI maturity and identify transformation opportunities.",
+    id: "eti",
+    title: "Entreprises de Taille Intermédiaire (ETI)",
+    description: "Entreprises de 250 à 5000 salariés visant l'excellence opérationnelle par l'IA.",
     icon: TrendingUp,
-    features: ["Portfolio assessment", "Due diligence support", "Growth insights"],
-    link: "/for-investors",
+    features: ["Transformation digitale", "IA avancée", "Innovation stratégique"],
+    link: "/start",
     color: "bg-gradient-to-br from-success/10 to-success/5",
     iconColor: "text-success"
+  },
+  {
+    id: "ge",
+    title: "Grandes Entreprises (GE)",
+    description: "Entreprises de plus de 5000 salariés déployant l'IA à grande échelle.",
+    icon: Factory,
+    features: ["IA à l'échelle", "Écosystème complexe", "Excellence opérationnelle"],
+    link: "/start",
+    color: "bg-gradient-to-br from-warning/10 to-warning/5",
+    iconColor: "text-warning"
   }
 ];
 
@@ -41,15 +51,15 @@ const SegmentCards = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Tailored for Your Business Size
+            Adapté à Votre Taille d'Entreprise
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Whether you're a growing small business, established medium enterprise, or investor, 
-            our platform provides insights specific to your needs and industry context.
+            Que vous soyez une microentreprise, PME, ETI ou grande entreprise, 
+            notre plateforme fournit des insights spécifiques à vos besoins et votre contexte industriel.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {segments.map((segment, index) => {
             const IconComponent = segment.icon;
             return (
@@ -98,7 +108,7 @@ const SegmentCards = () => {
         <div className="text-center mt-12">
           <Button variant="gradient" size="xl" asChild>
             <Link to="/start" className="group">
-              Start Your Assessment
+              Commencer Votre Évaluation
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </Button>

@@ -36,7 +36,7 @@ const segments = [
     id: "ge",
     title: "Grandes Entreprises (GE)",
     description: "Entreprises de plus de 5000 salariés",
-    icon: Building2,
+    icon: Factory,
     features: ["IA à l'échelle", "Écosystème complexe", "Excellence opérationnelle"],
     color: "border-warning hover:border-warning/60",
     bgColor: "hover:bg-warning/5"
