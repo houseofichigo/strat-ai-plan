@@ -371,7 +371,9 @@ export function UseCaseModal({ useCase, isOpen, onClose, onAddToRoadmap }: UseCa
                           onClose();
                           setTimeout(() => {
                             // This would need to be handled by parent component
-                            console.log('Navigate to similar use case:', similarUseCase.id);
+                            if (process.env.NODE_ENV === 'development') {
+                              console.log('Navigate to similar use case:', similarUseCase.id);
+                            }
                           }, 100);
                         }}
                         onAddToRoadmap={onAddToRoadmap}

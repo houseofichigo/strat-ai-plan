@@ -514,7 +514,9 @@ Could you be more specific about what you'd like to explore? Or try one of our s
       const assistantMessage = await generateResponse(input);
       setMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
-      console.error('Error generating response:', error);
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Error generating response:', error);
+      }
       const errorMessage: Message = {
         id: Date.now().toString(),
         type: 'assistant',
@@ -544,19 +546,27 @@ Could you be more specific about what you'd like to explore? Or try one of our s
     switch (action.type) {
       case 'roadmap':
         // Add to roadmap logic
-        console.log('Adding to roadmap:', action.data);
+        if (process.env.NODE_ENV === 'development') {
+          console.log('Adding to roadmap:', action.data);
+        }
         break;
       case 'preview':
         // Preview logic
-        console.log('Previewing:', action.data);
+        if (process.env.NODE_ENV === 'development') {
+          console.log('Previewing:', action.data);
+        }
         break;
       case 'launch':
         // Launch logic
-        console.log('Launching:', action.data);
+        if (process.env.NODE_ENV === 'development') {
+          console.log('Launching:', action.data);
+        }
         break;
       case 'export':
         // Export logic
-        console.log('Exporting:', action.data);
+        if (process.env.NODE_ENV === 'development') {
+          console.log('Exporting:', action.data);
+        }
         break;
     }
   };

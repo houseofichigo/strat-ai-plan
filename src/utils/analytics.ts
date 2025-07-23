@@ -25,8 +25,10 @@ export class AnalyticsService {
       console.warn('Failed to store analytics:', error);
     }
     
-    // Log for debugging
-    console.log('Analytics tracked:', interaction);
+    // Log for debugging in development only
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Analytics tracked:', interaction);
+    }
   }
   
   getPopularUseCases(): string[] {

@@ -12,12 +12,18 @@ interface AssessmentResultsProps {
 export const AssessmentResults: React.FC<AssessmentResultsProps> = ({ formData }) => {
   const handleDownloadReport = () => {
     // Implementation for downloading PDF report
-    console.log('Downloading report...', formData);
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Downloading report...', formData);
+    }
+    // TODO: Implement PDF generation
   };
 
   const handleEmailReport = () => {
     // Implementation for emailing report
-    console.log('Emailing report...', formData);
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Emailing report...', formData);
+    }
+    // TODO: Implement email service
   };
 
   const handleGoToDashboard = () => {
