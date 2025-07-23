@@ -324,6 +324,21 @@ export function UseCaseModal({ useCase, isOpen, onClose, onAddToRoadmap }: UseCa
               </CardContent>
             </Card>
           )}
+
+          {/* Similar Use Cases */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">You Might Also Like</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-2 gap-4">
+                {/* Add similar use cases logic here */}
+                <div className="text-center text-muted-foreground py-4">
+                  Similar use cases based on industry and AI type coming soon...
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </DialogContent>
     </Dialog>
