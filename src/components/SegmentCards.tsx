@@ -4,27 +4,27 @@ import { Building2, Rocket, TrendingUp, ArrowRight } from "lucide-react";
 
 const segments = [
   {
-    id: "startups",
-    title: "Startups",
-    description: "Validate your AI strategy and identify high-impact automation opportunities to accelerate growth.",
+    id: "sme",
+    title: "Small Business",
+    description: "Growing companies with 1-50 employees looking to leverage AI for competitive advantage.",
     icon: Rocket,
-    features: ["MVP-ready AI solutions", "Growth automation", "Investor readiness"],
-    link: "/for-startups",
+    features: ["Cost-effective solutions", "Quick implementation", "Growth acceleration"],
+    link: "/for-companies",
     color: "bg-gradient-to-br from-accent/10 to-accent/5",
     iconColor: "text-accent"
   },
   {
-    id: "companies",
-    title: "Companies",
-    description: "Transform operations with enterprise-grade AI implementations and data-driven insights.",
+    id: "enterprise",
+    title: "Medium Enterprise",
+    description: "Established businesses with 50-500 employees ready for digital transformation.",
     icon: Building2,
-    features: ["Enterprise solutions", "Process optimization", "Compliance ready"],
+    features: ["Enterprise solutions", "Process optimization", "Scalable automation"],
     link: "/for-companies",
     color: "bg-gradient-to-br from-primary/10 to-primary/5",
     iconColor: "text-primary"
   },
   {
-    id: "investors",
+    id: "investor",
     title: "Investors",
     description: "Evaluate portfolio companies' AI maturity and identify transformation opportunities.",
     icon: TrendingUp,
@@ -41,10 +41,10 @@ const SegmentCards = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Tailored for Your Organization
+            Tailored for Your Business Size
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Whether you're a fast-growing startup, established enterprise, or investor, 
+            Whether you're a growing small business, established medium enterprise, or investor, 
             our platform provides insights specific to your needs and industry context.
           </p>
         </div>

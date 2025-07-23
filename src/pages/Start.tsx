@@ -6,20 +6,20 @@ import Navigation from "@/components/Navigation";
 
 const segments = [
   {
-    id: "startup",
-    title: "Startup",
+    id: "small-business",
+    title: "Small Business",
     description: "Growing company with 1-50 employees",
     icon: Rocket,
-    features: ["MVP validation", "Growth strategy", "Investor readiness"],
+    features: ["Cost-effective AI", "Quick wins", "Growth focused"],
     color: "border-accent hover:border-accent/60",
     bgColor: "hover:bg-accent/5"
   },
   {
-    id: "company",
-    title: "Company",
-    description: "Established business with 50+ employees",
+    id: "medium-enterprise", 
+    title: "Medium Enterprise",
+    description: "Established business with 50-500 employees",
     icon: Building2,
-    features: ["Process optimization", "Enterprise solutions", "Digital transformation"],
+    features: ["Process automation", "Enterprise solutions", "Scalable systems"],
     color: "border-primary hover:border-primary/60",
     bgColor: "hover:bg-primary/5"
   },
