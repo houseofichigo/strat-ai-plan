@@ -41,50 +41,89 @@ export function TrainingCenter() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Personalized Hero Banner */}
+      {/* Enhanced Hero Banner with Learning Progress */}
       <div className="px-6 pt-6 mb-8">
         <Card className="border-0 bg-gradient-to-r from-primary/20 via-primary/10 to-secondary/20 overflow-hidden">
           <CardContent className="p-8 lg:p-12">
-            <div className="max-w-4xl">
-              <Badge className="mb-4 bg-accent text-accent-foreground">
-                Personalized for {currentUser.role}
-              </Badge>
-              <h1 className="text-4xl lg:text-5xl font-bold mb-4">
-                AI & Automation Training Built for You
-              </h1>
-              <p className="text-lg text-muted-foreground mb-6">
-                Accelerate your AI journey with courses tailored to your role, experience level, 
-                and learning goals. Start with quick wins or dive deep into advanced topics.
-              </p>
-              
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-                <div className="text-center p-4 bg-background/80 rounded-lg">
-                  <div className="text-2xl font-bold text-primary">{personalizedCourses.length}</div>
-                  <div className="text-sm text-muted-foreground">Courses for You</div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div className="max-w-xl">
+                <Badge className="mb-4 bg-accent text-accent-foreground">
+                  Personalized for {currentUser.role}
+                </Badge>
+                <h1 className="text-4xl lg:text-5xl font-bold mb-4">
+                  Your AI Learning Journey
+                </h1>
+                <p className="text-lg text-muted-foreground mb-6">
+                  Skills-first training designed for your roadmap items and career progression
+                </p>
+                
+                {/* Learning Progress */}
+                <div className="mb-6 p-4 bg-background/80 rounded-lg">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-medium">Learning Path Progress</span>
+                    <span className="text-sm font-bold">68% Complete</span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-3 mb-2">
+                    <div className="bg-primary h-3 rounded-full transition-all duration-500" style={{ width: '68%' }}></div>
+                  </div>
+                  <p className="text-sm text-muted-foreground">14 of 24 courses completed • 3 in progress</p>
                 </div>
-                <div className="text-center p-4 bg-background/80 rounded-lg">
-                  <div className="text-2xl font-bold text-primary">24h</div>
-                  <div className="text-sm text-muted-foreground">Total Learning</div>
-                </div>
-                <div className="text-center p-4 bg-background/80 rounded-lg">
-                  <div className="text-2xl font-bold text-primary">95%</div>
-                  <div className="text-sm text-muted-foreground">Completion Rate</div>
-                </div>
-                <div className="text-center p-4 bg-background/80 rounded-lg">
-                  <div className="text-2xl font-bold text-primary">4.8★</div>
-                  <div className="text-sm text-muted-foreground">Avg. Rating</div>
+
+                <div className="flex gap-4">
+                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                    <Play className="w-5 h-5 mr-2" />
+                    Continue Learning
+                  </Button>
+                  <Button size="lg" variant="outline">
+                    <Target className="w-5 h-5 mr-2" />
+                    View Learning Path
+                  </Button>
                 </div>
               </div>
 
-              <div className="flex gap-4">
-                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                  <BookOpen className="w-5 h-5 mr-2" />
-                  Start Learning
-                </Button>
-                <Button size="lg" variant="outline">
-                  <Target className="w-5 h-5 mr-2" />
-                  Build Learning Path
-                </Button>
+              {/* Skills Dashboard */}
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold mb-4">Your Skills & Achievements</h3>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="text-center p-4 bg-background/80 rounded-lg">
+                    <Award className="w-6 h-6 mx-auto mb-2 text-yellow-500" />
+                    <div className="text-2xl font-bold text-primary">8</div>
+                    <div className="text-sm text-muted-foreground">Skill Badges</div>
+                  </div>
+                  <div className="text-center p-4 bg-background/80 rounded-lg">
+                    <Star className="w-6 h-6 mx-auto mb-2 text-purple-500" />
+                    <div className="text-2xl font-bold text-primary">2</div>
+                    <div className="text-sm text-muted-foreground">Certificates</div>
+                  </div>
+                </div>
+
+                {/* Recent Skill Badges */}
+                <div className="p-4 bg-background/80 rounded-lg">
+                  <h4 className="font-medium mb-3">Recent Achievements</h4>
+                  <div className="flex flex-wrap gap-2">
+                    <Badge className="bg-green-100 text-green-800">
+                      <CheckCircle className="w-3 h-3 mr-1" />
+                      AI Fundamentals
+                    </Badge>
+                    <Badge className="bg-blue-100 text-blue-800">
+                      <CheckCircle className="w-3 h-3 mr-1" />
+                      Prompt Engineering
+                    </Badge>
+                    <Badge className="bg-purple-100 text-purple-800">
+                      <CheckCircle className="w-3 h-3 mr-1" />
+                      Workflow Automation
+                    </Badge>
+                  </div>
+                </div>
+
+                {/* Skill Gaps */}
+                <div className="p-4 bg-orange-50 dark:bg-orange-950/20 rounded-lg border border-orange-200 dark:border-orange-800">
+                  <h4 className="font-medium mb-2 text-orange-800 dark:text-orange-200">Recommended Next</h4>
+                  <p className="text-sm text-orange-700 dark:text-orange-300">
+                    Complete "Data Analysis" training to unlock advanced AI agents in your roadmap
+                  </p>
+                </div>
               </div>
             </div>
           </CardContent>
