@@ -9,9 +9,12 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { UseCase } from '@/data/useCasesData';
+import { UseCase, useCasesData } from '@/data/useCasesData';
+import { UseCaseCard } from './UseCaseCard';
 import { Plus, Share2, Clock, Users, Target, AlertTriangle, CheckCircle, Database, Cog, TrendingUp, ExternalLink } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { getSimilarUseCases } from '@/utils/searchUtils';
+import { analytics } from '@/utils/analytics';
 
 interface UseCaseModalProps {
   useCase: UseCase | null;
@@ -22,6 +25,32 @@ interface UseCaseModalProps {
 
 export function UseCaseModal({ useCase, isOpen, onClose, onAddToRoadmap }: UseCaseModalProps) {
   if (!useCase) return null;
+
+  // Track analytics when modal opens
+  React.useEffect(() => {
+    if (isOpen && useCase) {
+      analytics.track(useCase.id, 'view');
+    }
+  }, [isOpen, useCase]);
+
+  const similarUseCases = React.useMemo(() => {
+    return getSimilarUseCases(useCase, useCasesData, 4);
+  }, [useCase]);
+
+  const handleAddToRoadmap = () => {
+    analytics.track(useCase.id, 'add_to_roadmap');
+    onAddToRoadmap(useCase);
+  };
+
+  const handleShare = () => {
+    analytics.track(useCase.id, 'share');
+    if (navigator.share) {
+      navigator.share({ 
+        title: useCase.title, 
+        text: useCase.description 
+      });
+    }
+  };
 
   const getComplexityColor = (complexity: string) => {
     switch (complexity) {
@@ -67,14 +96,14 @@ export function UseCaseModal({ useCase, isOpen, onClose, onAddToRoadmap }: UseCa
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => navigator.share && navigator.share({ title: useCase.title, text: useCase.description })}
+                onClick={handleShare}
               >
                 <Share2 className="w-4 h-4 mr-1" />
                 Share
               </Button>
               <Button
                 size="sm"
-                onClick={() => onAddToRoadmap(useCase)}
+                onClick={handleAddToRoadmap}
                 className="bg-primary text-primary-foreground hover:bg-primary/90"
               >
                 <Plus className="w-4 h-4 mr-1" />
@@ -331,12 +360,30 @@ export function UseCaseModal({ useCase, isOpen, onClose, onAddToRoadmap }: UseCa
               <CardTitle className="text-lg">You Might Also Like</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid md:grid-cols-2 gap-4">
-                {/* Add similar use cases logic here */}
-                <div className="text-center text-muted-foreground py-4">
-                  Similar use cases based on industry and AI type coming soon...
+              {similarUseCases.length > 0 ? (
+                <div className="grid md:grid-cols-2 gap-4">
+                  {similarUseCases.map((similarUseCase) => (
+                    <div key={similarUseCase.id} className="scale-75 origin-top-left">
+                      <UseCaseCard
+                        useCase={similarUseCase}
+                        onViewDetails={() => {
+                          onClose();
+                          setTimeout(() => {
+                            // This would need to be handled by parent component
+                            console.log('Navigate to similar use case:', similarUseCase.id);
+                          }, 100);
+                        }}
+                        onAddToRoadmap={onAddToRoadmap}
+                        className="h-auto"
+                      />
+                    </div>
+                  ))}
                 </div>
-              </div>
+              ) : (
+                <div className="text-center text-muted-foreground py-4">
+                  No similar use cases found
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>

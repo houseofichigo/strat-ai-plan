@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -14,10 +14,19 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { Search, Filter, X } from 'lucide-react';
-import { industries, departments, aiTypes } from '@/data/useCasesData';
+import { Search, Filter, X, Clock } from 'lucide-react';
+import { industries, departments, aiTypes, useCasesData } from '@/data/useCasesData';
+import { getSearchSuggestions } from '@/utils/searchUtils';
 
 export interface FilterState {
   search: string;
@@ -36,8 +45,60 @@ interface SearchFiltersProps {
 }
 
 export function SearchFilters({ filters, onFiltersChange, onReset }: SearchFiltersProps) {
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [recentSearches, setRecentSearches] = useState<string[]>([]);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    // Load recent searches
+    try {
+      const stored = localStorage.getItem('recent_searches');
+      if (stored) {
+        setRecentSearches(JSON.parse(stored));
+      }
+    } catch (error) {
+      console.warn('Failed to load recent searches:', error);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (filters.search) {
+      const newSuggestions = getSearchSuggestions(filters.search, useCasesData);
+      setSuggestions(newSuggestions);
+      setShowSuggestions(newSuggestions.length > 0);
+    } else {
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
+  }, [filters.search]);
+
   const updateFilter = (key: keyof FilterState, value: any) => {
     onFiltersChange({ ...filters, [key]: value });
+  };
+
+  const handleSearchChange = (value: string) => {
+    updateFilter('search', value);
+  };
+
+  const handleSearchSelect = (value: string) => {
+    updateFilter('search', value);
+    setShowSuggestions(false);
+    
+    // Add to recent searches
+    const newRecent = [value, ...recentSearches.filter(s => s !== value)].slice(0, 5);
+    setRecentSearches(newRecent);
+    try {
+      localStorage.setItem('recent_searches', JSON.stringify(newRecent));
+    } catch (error) {
+      console.warn('Failed to save recent search:', error);
+    }
+  };
+
+  const clearSearch = () => {
+    updateFilter('search', '');
+    setShowSuggestions(false);
+    searchInputRef.current?.focus();
   };
 
   const toggleArrayFilter = (key: 'industries' | 'departments' | 'aiTypes', value: string) => {
@@ -59,15 +120,79 @@ export function SearchFilters({ filters, onFiltersChange, onReset }: SearchFilte
 
   return (
     <div className="space-y-4">
-      {/* Search Bar */}
+      {/* Enhanced Search Bar */}
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4 z-10" />
         <Input
-          placeholder="Search use cases..."
+          ref={searchInputRef}
+          placeholder="Search use cases, industries, or AI types..."
           value={filters.search}
-          onChange={(e) => updateFilter('search', e.target.value)}
-          className="pl-10"
+          onChange={(e) => handleSearchChange(e.target.value)}
+          onFocus={() => setShowSuggestions(suggestions.length > 0 || recentSearches.length > 0)}
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') {
+              setShowSuggestions(false);
+            } else if (e.key === 'Enter' && suggestions.length > 0) {
+              handleSearchSelect(suggestions[0]);
+            }
+          }}
+          className="pl-10 pr-10"
+          aria-label="Search use cases"
+          aria-expanded={showSuggestions}
+          aria-haspopup="listbox"
         />
+        {filters.search && (
+          <button
+            onClick={clearSearch}
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground w-4 h-4"
+            aria-label="Clear search"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        )}
+
+        {/* Search Suggestions Dropdown */}
+        {showSuggestions && (
+          <Card className="absolute top-full left-0 right-0 z-50 mt-1 border shadow-lg">
+            <Command>
+              <CommandList className="max-h-48">
+                {recentSearches.length > 0 && !filters.search && (
+                  <CommandGroup heading="Recent Searches">
+                    {recentSearches.map((search) => (
+                      <CommandItem
+                        key={search}
+                        onSelect={() => handleSearchSelect(search)}
+                        className="cursor-pointer"
+                      >
+                        <Clock className="w-4 h-4 mr-2 text-muted-foreground" />
+                        {search}
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                )}
+                
+                {suggestions.length > 0 && (
+                  <CommandGroup heading="Suggestions">
+                    {suggestions.map((suggestion) => (
+                      <CommandItem
+                        key={suggestion}
+                        onSelect={() => handleSearchSelect(suggestion)}
+                        className="cursor-pointer"
+                      >
+                        <Search className="w-4 h-4 mr-2 text-muted-foreground" />
+                        {suggestion}
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                )}
+                
+                {filters.search && suggestions.length === 0 && (
+                  <CommandEmpty>No suggestions found for "{filters.search}"</CommandEmpty>
+                )}
+              </CommandList>
+            </Command>
+          </Card>
+        )}
       </div>
 
       {/* Quick Filters */}

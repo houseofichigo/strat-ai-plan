@@ -5,11 +5,14 @@ import { CategoryRow } from './usecases/CategoryRow';
 import { SearchFilters, FilterState } from './usecases/SearchFilters';
 import { UseCaseCard } from './usecases/UseCaseCard';
 import { UseCaseModal } from './usecases/UseCaseModal';
+import { HeroBannerSkeleton, CategoryRowSkeleton, UseCaseCardSkeleton } from './usecases/LoadingSkeletons';
 import { useCasesData, categories, UseCase } from '@/data/useCasesData';
+import { analytics } from '@/utils/analytics';
 
 export function UseCases() {
   const [selectedUseCase, setSelectedUseCase] = useState<UseCase | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [filters, setFilters] = useState<FilterState>({
     search: '',
     industries: [],
@@ -19,6 +22,13 @@ export function UseCases() {
     maturity: '',
     suitability: ''
   });
+
+  // Simulate loading for demonstration
+  React.useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => setIsLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const filteredUseCases = useMemo(() => {
     return useCasesData.filter(useCase => {
@@ -65,11 +75,13 @@ export function UseCases() {
   const featuredUseCases = useCasesData.filter(uc => uc.featured);
 
   const handleViewDetails = (useCase: UseCase) => {
+    analytics.track(useCase.id, 'view');
     setSelectedUseCase(useCase);
     setIsModalOpen(true);
   };
 
   const handleAddToRoadmap = (useCase: UseCase) => {
+    analytics.track(useCase.id, 'add_to_roadmap');
     toast.success(`"${useCase.title}" added to roadmap!`);
   };
 
@@ -92,6 +104,21 @@ export function UseCases() {
     filters.complexity || 
     filters.maturity || 
     filters.suitability;
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <div className="px-6 pt-6">
+          <HeroBannerSkeleton />
+        </div>
+        <div className="px-6">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <CategoryRowSkeleton key={i} />
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
