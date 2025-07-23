@@ -72,13 +72,14 @@ export function UseCaseModal({ useCase, isOpen, onClose, onAddToRoadmap }: UseCa
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto" aria-describedby="usecase-description">
         <DialogHeader>
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-4">
               <div className="text-4xl">{useCase.thumbnail}</div>
               <div>
                 <DialogTitle className="text-2xl mb-2">{useCase.title}</DialogTitle>
+                <div id="usecase-description" className="text-muted-foreground">{useCase.description}</div>
                 <div className="flex gap-2">
                   <Badge className={cn("text-xs", getComplexityColor(useCase.complexity))}>
                     {useCase.complexity} Complexity
