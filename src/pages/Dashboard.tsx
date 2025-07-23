@@ -11,6 +11,7 @@ import { TrainingCenter } from '@/components/dashboard/TrainingCenter';
 import { GDPRRegistry } from '@/components/dashboard/GDPRRegistry';
 import { Playground } from '@/components/dashboard/Playground';
 import { AdminPanel } from '@/components/dashboard/AdminPanel';
+import { Services } from '@/components/dashboard/Services';
 
 export default function Dashboard() {
   return (
@@ -28,6 +29,7 @@ export default function Dashboard() {
             <Route path="/training" element={<TrainingCenter />} />
             <Route path="/gdpr" element={<GDPRRegistry />} />
             <Route path="/playground" element={<Playground />} />
+            <Route path="/services" element={<Services />} />
             <Route path="/admin" element={<AdminPanel />} />
             <Route path="/" element={<ReportDashboard />} />
           </Routes>
