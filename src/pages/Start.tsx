@@ -1,36 +1,45 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { ArrowRight, Building2, Rocket, TrendingUp, Clock, Award, BarChart3 } from "lucide-react";
+import { ArrowRight, Building2, Rocket, TrendingUp, Clock, Award, BarChart3, Factory } from "lucide-react";
 import Navigation from "@/components/Navigation";
 
 const segments = [
   {
-    id: "small-business",
-    title: "Small Business",
-    description: "Growing company with 1-50 employees",
+    id: "microenterprise",
+    title: "Microentreprises (MIC)",
+    description: "Très petites entreprises avec moins de 10 salariés",
     icon: Rocket,
-    features: ["Cost-effective AI", "Quick wins", "Growth focused"],
+    features: ["Solutions simples", "Coût maîtrisé", "Déploiement rapide"],
     color: "border-accent hover:border-accent/60",
     bgColor: "hover:bg-accent/5"
   },
   {
-    id: "medium-enterprise", 
-    title: "Medium Enterprise",
-    description: "Established business with 50-500 employees",
+    id: "pme", 
+    title: "Petites et Moyennes Entreprises (PME)",
+    description: "Entreprises de 10 à 250 salariés",
     icon: Building2,
-    features: ["Process automation", "Enterprise solutions", "Scalable systems"],
+    features: ["Automatisation des processus", "Solutions évolutives", "ROI mesuré"],
     color: "border-primary hover:border-primary/60",
     bgColor: "hover:bg-primary/5"
   },
   {
-    id: "investor",
-    title: "Investor",
-    description: "Evaluating portfolio companies",
+    id: "eti",
+    title: "Entreprises de Taille Intermédiaire (ETI)",
+    description: "Entreprises de 250 à 5000 salariés",
     icon: TrendingUp,
-    features: ["Due diligence", "Portfolio assessment", "Growth insights"],
+    features: ["Transformation digitale", "IA avancée", "Innovation stratégique"],
     color: "border-success hover:border-success/60",
     bgColor: "hover:bg-success/5"
+  },
+  {
+    id: "ge",
+    title: "Grandes Entreprises (GE)",
+    description: "Entreprises de plus de 5000 salariés",
+    icon: Building2,
+    features: ["IA à l'échelle", "Écosystème complexe", "Excellence opérationnelle"],
+    color: "border-warning hover:border-warning/60",
+    bgColor: "hover:bg-warning/5"
   }
 ];
 

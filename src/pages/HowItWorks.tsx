@@ -8,31 +8,45 @@ import { CheckCircle, Users, BarChart3, Zap, ArrowRight } from "lucide-react";
 const steps = [
   {
     number: "01",
-    title: "Organization Assessment",
-    description: "Answer questions about your current technology stack, data infrastructure, and AI readiness across 6 key dimensions.",
+    title: "AI & Data Readiness Assessment",
+    description: "Complete a comprehensive evaluation across 6 dimensions: technology stack, data maturity, AI fluency, use cases, compliance, and integration capabilities.",
     icon: Users,
     color: "text-primary"
   },
   {
     number: "02", 
-    title: "Intelligent Analysis",
-    description: "Our AI engine analyzes your responses and benchmarks against industry standards to identify strengths and opportunities.",
+    title: "Intelligent Analysis & Scoring",
+    description: "Our AI engine analyzes your responses, benchmarks against industry standards, and generates a detailed readiness score with actionable insights.",
     icon: BarChart3,
     color: "text-accent"
   },
   {
     number: "03",
-    title: "Strategic Insights",
-    description: "Receive personalized recommendations, automation opportunities, and a tailored roadmap for AI implementation.",
+    title: "Use Cases & AI Agents Discovery",
+    description: "Discover personalized AI use cases, automation workflows, and intelligent agents tailored to your business needs and readiness level.",
     icon: Zap,
     color: "text-success"
   },
   {
     number: "04",
-    title: "Implementation Support",
-    description: "Access curated tools, workflows, and training resources to execute your AI transformation strategy.",
+    title: "Training & AI Playgrounds",
+    description: "Access curated training modules, hands-on AI playgrounds, and practical workshops to build your team's AI capabilities step by step.",
     icon: CheckCircle,
     color: "text-warning"
+  },
+  {
+    number: "05",
+    title: "Automation Workflows",
+    description: "Get ready-to-implement automation templates for Zapier, Make, and n8n that match your current tools and processes.",
+    icon: CheckCircle,
+    color: "text-primary"
+  },
+  {
+    number: "06",
+    title: "Personalized Roadmap",
+    description: "Receive a visual, actionable roadmap with prioritized AI initiatives, timeline, and implementation support resources.",
+    icon: CheckCircle,
+    color: "text-accent"
   }
 ];
 

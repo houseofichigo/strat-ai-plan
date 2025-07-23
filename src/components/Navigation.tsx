@@ -23,9 +23,6 @@ const Navigation = () => {
             <Link to="/how-it-works" className="text-muted-foreground hover:text-foreground transition-colors">
               How it Works
             </Link>
-            <Link to="/for-companies" className="text-muted-foreground hover:text-foreground transition-colors">
-              For SMEs
-            </Link>
             <Link to="/use-cases" className="text-muted-foreground hover:text-foreground transition-colors">
               Use Cases
             </Link>
@@ -64,13 +61,6 @@ const Navigation = () => {
               onClick={() => setIsMenuOpen(false)}
             >
               How it Works
-            </Link>
-            <Link 
-              to="/for-companies" 
-              className="block text-muted-foreground hover:text-foreground transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              For SMEs
             </Link>
             <Link 
               to="/use-cases" 
