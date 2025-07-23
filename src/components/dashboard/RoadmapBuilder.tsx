@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { RoadmapColumn } from './roadmap/RoadmapColumn';
 import { RoadmapItemModal } from './roadmap/RoadmapItemModal';
+import { RoadmapDetailModal } from './roadmap/RoadmapDetailModal';
 import { roadmapColumns, RoadmapItem, RoadmapColumn as RoadmapColumnType, roadmapManager } from '@/data/roadmapData';
 import { Search, Filter, Calendar, Users, Target, TrendingUp, Plus } from 'lucide-react';
 
@@ -15,6 +16,7 @@ export function RoadmapBuilder() {
   const [draggedItem, setDraggedItem] = useState<RoadmapItem | null>(null);
   const [selectedItem, setSelectedItem] = useState<RoadmapItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterPriority, setFilterPriority] = useState<string>('');
   const [filterCategory, setFilterCategory] = useState<string>('');
@@ -66,6 +68,11 @@ export function RoadmapBuilder() {
     roadmapManager.updateItem(item.id, { status: targetStatus as any });
     setDraggedItem(null);
     toast.success(`"${item.title}" moved to ${targetStatus}`);
+  };
+
+  const handleViewItem = (item: RoadmapItem) => {
+    setSelectedItem(item);
+    setIsDetailModalOpen(true);
   };
 
   const handleEditItem = (item: RoadmapItem) => {
@@ -240,6 +247,7 @@ export function RoadmapBuilder() {
               onDropItem={handleDropItem}
               onEditItem={handleEditItem}
               onDeleteItem={handleDeleteItem}
+              onViewItem={handleViewItem}
               draggedItem={draggedItem}
             />
           ))}
@@ -267,6 +275,16 @@ export function RoadmapBuilder() {
         item={selectedItem}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        onUpdate={handleUpdateItem}
+        onDelete={handleDeleteItem}
+      />
+
+      {/* Detailed View Modal */}
+      <RoadmapDetailModal
+        item={selectedItem}
+        isOpen={isDetailModalOpen}
+        onClose={() => setIsDetailModalOpen(false)}
+        onEdit={handleEditItem}
         onUpdate={handleUpdateItem}
         onDelete={handleDeleteItem}
       />

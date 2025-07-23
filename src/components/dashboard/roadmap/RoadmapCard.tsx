@@ -11,10 +11,11 @@ interface RoadmapCardProps {
   item: RoadmapItem;
   onEdit: (item: RoadmapItem) => void;
   onDelete: (id: string) => void;
+  onClick: (item: RoadmapItem) => void;
   isDragging?: boolean;
 }
 
-export function RoadmapCard({ item, onEdit, onDelete, isDragging }: RoadmapCardProps) {
+export function RoadmapCard({ item, onEdit, onDelete, onClick, isDragging }: RoadmapCardProps) {
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case 'Critical': return 'bg-destructive/10 text-destructive border-destructive/20';
@@ -40,14 +41,17 @@ export function RoadmapCard({ item, onEdit, onDelete, isDragging }: RoadmapCardP
   };
 
   return (
-    <Card className={cn(
-      "mb-4 cursor-pointer transition-all duration-300 hover:shadow-medium border-l-4 group",
-      item.priority === 'Critical' && "border-l-destructive bg-gradient-to-r from-destructive/5 to-transparent",
-      item.priority === 'High' && "border-l-warning bg-gradient-to-r from-warning/5 to-transparent",
-      item.priority === 'Medium' && "border-l-accent bg-gradient-to-r from-accent/5 to-transparent",
-      item.priority === 'Low' && "border-l-success bg-gradient-to-r from-success/5 to-transparent",
-      isDragging && "opacity-50 rotate-2 shadow-strong scale-105"
-    )}>
+    <Card 
+      className={cn(
+        "mb-4 cursor-pointer transition-all duration-300 hover:shadow-medium border-l-4 group",
+        item.priority === 'Critical' && "border-l-destructive bg-gradient-to-r from-destructive/5 to-transparent",
+        item.priority === 'High' && "border-l-warning bg-gradient-to-r from-warning/5 to-transparent",
+        item.priority === 'Medium' && "border-l-accent bg-gradient-to-r from-accent/5 to-transparent",
+        item.priority === 'Low' && "border-l-success bg-gradient-to-r from-success/5 to-transparent",
+        isDragging && "opacity-50 rotate-2 shadow-strong scale-105"
+      )}
+      onClick={() => onClick(item)}
+    >
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-start gap-3 flex-1 min-w-0">
@@ -78,7 +82,7 @@ export function RoadmapCard({ item, onEdit, onDelete, isDragging }: RoadmapCardP
       </CardHeader>
       
       <CardContent className="pt-0">
-        {/* Enhanced Tags */}
+        {/* Enhanced Tags with Source Info */}
         <div className="flex flex-wrap gap-2 mb-4">
           <Badge variant="outline" className={cn("text-xs font-medium border", getCategoryColor(item.category))}>
             {item.category}
@@ -86,11 +90,27 @@ export function RoadmapCard({ item, onEdit, onDelete, isDragging }: RoadmapCardP
           <Badge variant="outline" className={cn("text-xs font-medium border", getPriorityColor(item.priority))}>
             {item.priority}
           </Badge>
-          {item.tags && item.tags.slice(0, 2).map((tag) => (
+          <Badge variant="secondary" className="text-xs bg-muted/60">
+            {item.type}
+          </Badge>
+          {item.tags && item.tags.slice(0, 1).map((tag) => (
             <Badge key={tag} variant="secondary" className="text-xs">
               {tag}
             </Badge>
           ))}
+        </div>
+
+        {/* Source Connection */}
+        <div className="mb-3 p-2 bg-muted/30 rounded-md border">
+          <div className="flex items-center gap-2">
+            <div className="text-xs text-muted-foreground font-medium">Source:</div>
+            <Badge variant="outline" className="text-xs">
+              {item.source === 'use-cases' ? '📋 Use Case' : 
+               item.source === 'agents' ? '🤖 AI Agent' : 
+               item.source === 'workflows' ? '⚡ Workflow' : '📚 Training'}
+            </Badge>
+            <div className="text-xs text-muted-foreground">ID: {item.sourceId}</div>
+          </div>
         </div>
 
         {/* Progress */}

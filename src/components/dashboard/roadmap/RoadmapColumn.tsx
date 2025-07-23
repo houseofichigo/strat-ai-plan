@@ -11,6 +11,7 @@ interface RoadmapColumnProps {
   onDropItem: (item: RoadmapItem, targetStatus: string) => void;
   onEditItem: (item: RoadmapItem) => void;
   onDeleteItem: (id: string) => void;
+  onViewItem: (item: RoadmapItem) => void;
   draggedItem: RoadmapItem | null;
 }
 
@@ -18,7 +19,8 @@ export function RoadmapColumn({
   column, 
   onDropItem, 
   onEditItem, 
-  onDeleteItem, 
+  onDeleteItem,
+  onViewItem,
   draggedItem 
 }: RoadmapColumnProps) {
   const [isDragOver, setIsDragOver] = React.useState(false);
@@ -94,6 +96,7 @@ export function RoadmapColumn({
               item={item}
               onEdit={onEditItem}
               onDelete={onDeleteItem}
+              onClick={onViewItem}
               isDragging={draggedItem?.id === item.id}
             />
           </div>
