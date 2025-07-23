@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScoreCard } from '../components/ScoreCard';
 import { RadarChart } from '../components/RadarChart';
+import { DetailedPillarAssessment } from './DetailedPillarAssessment';
 import { TrendingUp, TrendingDown, AlertTriangle, CheckCircle } from 'lucide-react';
 
 export function OverviewTab() {
@@ -172,89 +173,8 @@ export function OverviewTab() {
         </div>
       </div>
 
-      {/* Detailed Pillar Breakdown */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-xl">Detailed Pillar Assessment</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors">
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-success" />
-                  <div>
-                    <h3 className="font-semibold">Data Foundation</h3>
-                    <p className="text-sm text-muted-foreground">Strong data infrastructure and governance</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="text-lg font-bold text-success">3.5/5</div>
-                  <Badge variant="outline" className="text-xs">Strong</Badge>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors">
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-primary" />
-                  <div>
-                    <h3 className="font-semibold">Technology Stack</h3>
-                    <p className="text-sm text-muted-foreground">Modern infrastructure with integration gaps</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="text-lg font-bold text-primary">3.2/5</div>
-                  <Badge variant="outline" className="text-xs">Good</Badge>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors">
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-primary" />
-                  <div>
-                    <h3 className="font-semibold">Governance & Ethics</h3>
-                    <p className="text-sm text-muted-foreground">Policies established, enforcement needed</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="text-lg font-bold text-primary">3.1/5</div>
-                  <Badge variant="outline" className="text-xs">Good</Badge>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors">
-                <div className="flex items-center gap-3">
-                  <TrendingDown className="w-5 h-5 text-warning" />
-                  <div>
-                    <h3 className="font-semibold">Talent & Culture</h3>
-                    <p className="text-sm text-muted-foreground">Skills development and training needed</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="text-lg font-bold text-warning">2.9/5</div>
-                  <Badge variant="secondary" className="text-xs">Developing</Badge>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors">
-                <div className="flex items-center gap-3">
-                  <TrendingDown className="w-5 h-5 text-warning" />
-                  <div>
-                    <h3 className="font-semibold">AI Strategy</h3>
-                    <p className="text-sm text-muted-foreground">Clear vision needed, use cases undefined</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="text-lg font-bold text-warning">2.8/5</div>
-                  <Badge variant="secondary" className="text-xs">Developing</Badge>
-                </div>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      {/* Detailed Pillar Assessment */}
+      <DetailedPillarAssessment />
     </div>
   );
 }

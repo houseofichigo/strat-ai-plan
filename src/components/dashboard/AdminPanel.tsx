@@ -5,6 +5,7 @@ import { DashboardSkeleton } from '@/components/ui/loading-skeleton';
 import { PlatformOverview } from './admin/PlatformOverview';
 import { LicenseManagement } from './admin/LicenseManagement';
 import { UserAnalytics } from './admin/UserAnalytics';
+import { ROIProjectionTool } from './admin/ROIProjectionTool';
 
 export function AdminPanel() {
   return (
@@ -17,13 +18,14 @@ export function AdminPanel() {
           </div>
         </div>
 
-        <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="licenses">License Management</TabsTrigger>
-            <TabsTrigger value="users">User Analytics</TabsTrigger>
-            <TabsTrigger value="analytics">Advanced Analytics</TabsTrigger>
-          </TabsList>
+      <Tabs defaultValue="overview" className="space-y-6">
+        <TabsList className="grid w-full grid-cols-5">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="licenses">License Management</TabsTrigger>
+          <TabsTrigger value="users">User Analytics</TabsTrigger>
+          <TabsTrigger value="roi">ROI Projection</TabsTrigger>
+          <TabsTrigger value="analytics">Advanced Analytics</TabsTrigger>
+        </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
             <Suspense fallback={<DashboardSkeleton />}>
@@ -40,6 +42,12 @@ export function AdminPanel() {
           <TabsContent value="users" className="space-y-6">
             <Suspense fallback={<DashboardSkeleton />}>
               <UserAnalytics />
+            </Suspense>
+          </TabsContent>
+
+          <TabsContent value="roi" className="space-y-6">
+            <Suspense fallback={<DashboardSkeleton />}>
+              <ROIProjectionTool />
             </Suspense>
           </TabsContent>
 
