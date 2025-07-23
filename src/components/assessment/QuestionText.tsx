@@ -33,6 +33,11 @@ export const QuestionText: React.FC<QuestionTextProps> = ({
               {question.text}
               {question.required && <span className="text-destructive ml-1">*</span>}
             </Label>
+            {question.description && (
+              <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+                {question.description}
+              </p>
+            )}
             {error && (
               <p className="text-sm text-destructive mt-1">{error}</p>
             )}

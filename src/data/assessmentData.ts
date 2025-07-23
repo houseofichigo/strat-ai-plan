@@ -1,6 +1,7 @@
 export interface AssessmentQuestion {
   id: string;
   text: string;
+  description?: string;
   type: 'radio' | 'multiselect' | 'dropdown' | 'text' | 'textarea';
   options?: string[];
   required: boolean;
@@ -11,6 +12,7 @@ export interface AssessmentSectionData {
   id: string;
   title: string;
   description: string;
+  detailedDescription?: string;
   weight: string;
   estimatedTime: string;
   questions: AssessmentQuestion[];
@@ -27,12 +29,14 @@ export const assessmentSections: AssessmentSectionData[] = [
     id: 'business-strategy',
     title: 'Business Strategy & Use-Case Readiness',
     description: 'Evaluates how clearly your business sees the opportunity for AI, how well near-term use-cases are defined, and how these initiatives align with broader business goals.',
+    detailedDescription: 'This section helps us understand where you are in your AI journey - from initial exploration to having concrete, prioritized use cases that align with your business objectives.',
     weight: '10%',
     estimatedTime: '5 minutes',
     questions: [
       {
         id: 'identified-problems',
         text: 'Have you identified concrete opportunities to apply AI?',
+        description: 'This helps us understand how far along you are in identifying specific business problems that AI could solve.',
         type: 'radio',
         required: true,
         options: [
@@ -46,6 +50,7 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'roi-quantification',
         text: 'Have you estimated or modeled the potential benefits of AI?',
+        description: 'Understanding ROI expectations helps us gauge your business case maturity.',
         type: 'radio',
         required: true,
         options: [
@@ -58,6 +63,7 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'strategic-alignment',
         text: 'How well are your AI initiatives aligned with your company\'s top business goals or OKRs?',
+        description: 'Strategic alignment ensures AI investments support your broader business objectives.',
         type: 'radio',
         required: true,
         options: [
@@ -71,6 +77,7 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'use-case-prioritization',
         text: 'Have you prioritized your AI use-cases based on value and feasibility?',
+        description: 'Prioritization frameworks help focus resources on the most impactful AI initiatives first.',
         type: 'radio',
         required: true,
         options: [
@@ -85,6 +92,7 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'primary-objective',
         text: 'What\'s the main reason you\'re exploring AI?',
+        description: 'Your primary motivation will help us tailor recommendations to your specific goals.',
         type: 'radio',
         required: true,
         options: [
@@ -98,6 +106,7 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'competitive-pressure',
         text: 'How critical is AI adoption for maintaining competitive advantage in your industry?',
+        description: 'Competitive landscape analysis helps determine urgency and investment level needed.',
         type: 'radio',
         required: true,
         options: [
@@ -111,6 +120,7 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'decision-speed',
         text: 'How quickly can your organization typically move from idea to pilot implementation?',
+        description: 'Decision-making speed affects how we recommend structuring your AI implementation roadmap.',
         type: 'radio',
         required: true,
         options: [
@@ -123,6 +133,7 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'biggest-blocker',
         text: 'What\'s the main challenge preventing you from defining AI use-cases?',
+        description: 'Share any specific obstacles you\'re facing. This helps us provide targeted recommendations.',
         type: 'textarea',
         required: false
       }
@@ -132,12 +143,14 @@ export const assessmentSections: AssessmentSectionData[] = [
     id: 'financial-readiness',
     title: 'Financial & Strategic Readiness',
     description: 'Assesses your current budget capacity, funding runway, investor alignment, and clarity on measuring AI ROI.',
+    detailedDescription: 'Understanding your financial constraints and stakeholder support helps us recommend sustainable AI adoption strategies that fit your budget and timeline.',
     weight: '10%',
     estimatedTime: '5 minutes',
     questions: [
       {
         id: 'monthly-budget',
         text: 'What\'s your current or planned monthly budget for AI projects?',
+        description: 'This helps us recommend solutions that fit your investment capacity and suggest appropriate pilot scales.',
         type: 'radio',
         required: true,
         options: [
@@ -155,6 +168,7 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'annual-budget-share',
         text: 'How much of your annual tech budget is set aside for data & AI?',
+        description: 'Understanding your strategic allocation helps gauge organizational commitment to AI transformation.',
         type: 'radio',
         required: true,
         options: [
@@ -169,6 +183,7 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'funding-runway',
         text: 'How long could you fund AI initiatives with current resources?',
+        description: 'Your funding runway determines the scope and timeline we can recommend for your AI roadmap.',
         type: 'radio',
         required: true,
         options: [
@@ -182,6 +197,7 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'investor-commitment',
         text: 'How supportive are your investors or board of AI efforts?',
+        description: 'Stakeholder alignment affects implementation speed and the level of experimentation you can pursue.',
         type: 'radio',
         required: true,
         options: [
@@ -195,12 +211,14 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'investor-context',
         text: 'Share any additional details or concerns from your investors or board.',
+        description: 'Optional context about stakeholder perspectives helps us tailor our recommendations.',
         type: 'textarea',
         required: false
       },
       {
         id: 'expected-timeline',
         text: 'When do you expect to realize real benefits from AI?',
+        description: 'Your timeline expectations help us recommend the right balance of quick wins vs. strategic investments.',
         type: 'radio',
         required: true,
         options: [
@@ -214,6 +232,7 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'compliance-frameworks',
         text: 'Which regulatory frameworks apply to your business?',
+        description: 'Compliance requirements affect AI solution design, data handling, and deployment approaches.',
         type: 'multiselect',
         required: true,
         options: [
@@ -231,6 +250,7 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'success-metrics',
         text: 'Which metrics will you use to measure AI success?',
+        description: 'Clear success metrics ensure we can track progress and demonstrate ROI from your AI initiatives.',
         type: 'multiselect',
         required: true,
         options: [
@@ -250,6 +270,7 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'financial-tracking',
         text: 'How do you currently measure and track ROI from technology investments?',
+        description: 'Your existing measurement sophistication helps us recommend appropriate tracking approaches for AI.',
         type: 'radio',
         required: true,
         options: [
@@ -262,6 +283,7 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'strategic-partnerships',
         text: 'Do you have partnerships or vendor support for your AI initiatives?',
+        description: 'Existing partnerships can accelerate implementation or may need coordination in our recommendations.',
         type: 'radio',
         required: false,
         options: [

@@ -1,9 +1,8 @@
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
 
 const Diagnostic = () => {
   const [searchParams] = useSearchParams();
@@ -77,9 +76,11 @@ const Diagnostic = () => {
         </Card>
 
         <div className="text-center">
-          <Button variant="gradient" size="xl" className="group">
-            Start Assessment
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          <Button variant="gradient" size="xl" asChild>
+            <Link to="/assessment" className="group">
+              Start Assessment
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
           </Button>
         </div>
       </div>

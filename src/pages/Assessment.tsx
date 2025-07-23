@@ -73,9 +73,16 @@ const Assessment = () => {
                 ({currentSectionData.weight})
               </span>
             </CardTitle>
-            <p className="text-muted-foreground mt-2">
-              {currentSectionData.description}
-            </p>
+            <div className="mt-4 space-y-2">
+              <p className="text-muted-foreground">
+                {currentSectionData.description}
+              </p>
+              {currentSectionData.detailedDescription && (
+                <p className="text-sm text-muted-foreground bg-muted/50 p-3 rounded-lg border">
+                  💡 {currentSectionData.detailedDescription}
+                </p>
+              )}
+            </div>
           </CardHeader>
           
           <CardContent>

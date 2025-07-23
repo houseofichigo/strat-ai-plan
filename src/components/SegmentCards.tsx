@@ -107,7 +107,7 @@ const SegmentCards = () => {
 
         <div className="text-center mt-12">
           <Button variant="gradient" size="xl" asChild>
-            <Link to="/start" className="group">
+            <Link to="/assessment" className="group">
               Start Your Assessment
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>

@@ -207,7 +207,7 @@ const UseCases = () => {
                 are perfect for your organization.
               </p>
               <Button variant="gradient" size="xl" asChild>
-                <Link to="/start" className="group">
+                <Link to="/assessment" className="group">
                   Start Assessment
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
