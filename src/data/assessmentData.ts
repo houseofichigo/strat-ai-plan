@@ -294,6 +294,799 @@ export const assessmentSections: AssessmentSectionData[] = [
         ]
       }
     ]
+  },
+  {
+    id: 'data-maturity',
+    title: 'Data Maturity & Governance',
+    description: 'Assesses your data infrastructure, governance, privacy, and security controls to determine if your data foundation is ready for AI.',
+    detailedDescription: 'Your data foundation is critical for AI success. This section evaluates how well-structured, governed, and secure your data is.',
+    weight: '15%',
+    estimatedTime: '5-6 minutes',
+    questions: [
+      {
+        id: 'data-storage',
+        text: 'Where do you keep your critical business data?',
+        description: 'Understanding your data storage helps us assess integration complexity and recommend appropriate AI solutions.',
+        type: 'multiselect',
+        required: true,
+        options: [
+          'Google Sheets / Excel',
+          'Airtable / Notion',
+          'Internal database / data warehouse',
+          'CRM (e.g., HubSpot, Salesforce)',
+          'Cloud storage (e.g., Drive, Dropbox, S3)',
+          'External SaaS tools / silos',
+          'Not centralized yet',
+          'Other'
+        ]
+      },
+      {
+        id: 'data-consistency',
+        text: 'How standardized is your data structure and labeling across systems?',
+        description: 'Consistent data structure is essential for reliable AI model performance and accurate insights.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Not structured at all',
+          'Partially structured in some tools',
+          'Mostly structured and tagged with conventions',
+          'Fully standardized, documented, and version-controlled'
+        ]
+      },
+      {
+        id: 'data-governance',
+        text: 'Do you have a formal data governance policy?',
+        description: 'Data governance ensures data quality, security, and compliance - critical for enterprise AI deployment.',
+        type: 'radio',
+        required: true,
+        options: [
+          'None in place',
+          'Informal guidelines only',
+          'Policy exists for critical data assets',
+          'Formal policy applied across all teams with enforcement'
+        ]
+      },
+      {
+        id: 'data-ownership',
+        text: 'Who is accountable for maintaining data quality and managing access?',
+        description: 'Clear data ownership ensures accountability and proper maintenance of your AI data pipeline.',
+        type: 'radio',
+        required: true,
+        options: [
+          'No clear owner',
+          'Tech / engineering team',
+          'Department leads share responsibility',
+          'Dedicated data steward / team'
+        ]
+      },
+      {
+        id: 'data-confidence',
+        text: 'How confident are you in the quality and up-to-dateness of your data?',
+        description: 'Data quality directly impacts AI model accuracy and business decision reliability.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Low – frequent discrepancies',
+          'Moderate – spot-checks only',
+          'Good – basic validation rules in place',
+          'High – automated tests and alerts'
+        ]
+      },
+      {
+        id: 'security-controls',
+        text: 'What protective measures do you have in place for data?',
+        description: 'Security controls are essential for protecting sensitive data used in AI systems.',
+        type: 'multiselect',
+        required: true,
+        options: [
+          'Encryption at rest',
+          'Encryption in transit (TLS)',
+          'Role-based access control',
+          'Audit logs / access tracking',
+          'Data-loss prevention tools',
+          'Tokenization or anonymization',
+          'None'
+        ]
+      },
+      {
+        id: 'pii-handling',
+        text: 'Do you process personal or sensitive data, and if so, how do you manage it?',
+        description: 'Proper PII handling is crucial for compliance and ethical AI deployment.',
+        type: 'radio',
+        required: true,
+        options: [
+          'No PII processed',
+          'Yes, but no formal process',
+          'Yes, with documented GDPR/CCPA compliance',
+          'Not sure / reviewing'
+        ]
+      },
+      {
+        id: 'audit-readiness',
+        text: 'Can you provide records of how AI systems use personal data in compliance with GDPR or AI Act?',
+        description: 'Audit readiness ensures you can demonstrate compliance and explain AI decision-making processes.',
+        type: 'radio',
+        required: true,
+        options: [
+          'No tracking in place',
+          'Partial logs or model usage documentation',
+          'Logs available for critical use-cases',
+          'Complete audit trail and explainability system in place'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'technical-infrastructure',
+    title: 'Technical Infrastructure',
+    description: 'Assesses your technology stack, integration reliability, automation maturity, and readiness to scale AI-driven workflows.',
+    detailedDescription: 'Your technical foundation determines how easily we can integrate AI solutions and scale them across your organization.',
+    weight: '15%',
+    estimatedTime: '5-6 minutes',
+    questions: [
+      {
+        id: 'digital-platforms',
+        text: 'Which digital tools and platforms does your team rely on?',
+        description: 'Understanding your tech stack helps us recommend AI integrations that work seamlessly with your existing tools.',
+        type: 'multiselect',
+        required: true,
+        options: [
+          'Communication (Slack, Teams, Discord)',
+          'Docs & Knowledge (Google Docs, Notion, Office 365)',
+          'Project & Issue Tracking (Trello, Asana, ClickUp, Jira)',
+          'CRM & Revenue (HubSpot, Salesforce, Pipedrive)',
+          'Design / Creative (Figma, Canva, Adobe XD)',
+          'Development & Repos (GitHub, GitLab, Replit)',
+          'Analytics & BI (GA4, Looker, Mixpanel, Amplitude)',
+          'Advertising (Meta Ads, Google Ads, LinkedIn Ads)',
+          'Marketing Automation (Brevo, Mailchimp, ActiveCampaign)',
+          'E-commerce (Shopify, WooCommerce, Prestashop)',
+          'Finance & Billing (Stripe, QuickBooks, Pennylane)',
+          'Automation (Zapier, Make, n8n)',
+          'Other'
+        ]
+      },
+      {
+        id: 'tool-integration',
+        text: 'How well are your tools and systems connected to each other?',
+        description: 'Integration level affects how easily we can deploy AI solutions that work across your entire workflow.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Fully integrated – seamless data flow',
+          'Partially integrated – key systems only',
+          'Mostly siloed – manual exports needed',
+          'Not sure'
+        ]
+      },
+      {
+        id: 'integration-reliability',
+        text: 'How stable are your data connections and automations?',
+        description: 'System reliability determines the level of AI automation we can recommend and trust for critical processes.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Frequently – weekly issues',
+          'Occasionally – monthly issues',
+          'Rarely – few problems per quarter',
+          'Never – reliable'
+        ]
+      },
+      {
+        id: 'implementation-ownership',
+        text: 'Who is responsible for implementing tools and integrations?',
+        description: 'Understanding your technical resources helps us recommend the right level of AI solution complexity.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Internal tech / engineering team',
+          'Operations or product team',
+          'External agency / contractor',
+          'No dedicated owner'
+        ]
+      },
+      {
+        id: 'manual-transfers',
+        text: 'Where do you still manually move or copy-paste data?',
+        description: 'Manual data transfers are prime candidates for AI automation and efficiency improvements.',
+        type: 'multiselect',
+        required: true,
+        options: [
+          'CRM → spreadsheet',
+          'Email → reports / docs',
+          'Project tools → docs / slides',
+          'Dashboard → dashboard consolidation',
+          'Other'
+        ]
+      },
+      {
+        id: 'automation-comfort',
+        text: 'How comfortable are you personally with building automations?',
+        description: 'Your technical comfort level helps us recommend the right balance of self-service vs. managed AI solutions.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Very comfortable – build from scratch',
+          'Can follow guides',
+          'Need support',
+          'Not my role'
+        ]
+      },
+      {
+        id: 'automation-platforms',
+        text: 'Which automation tools are you currently using?',
+        description: 'Existing automation experience indicates readiness for more advanced AI-powered workflow optimization.',
+        type: 'multiselect',
+        required: true,
+        options: [
+          'Zapier',
+          'Make (Integromat)',
+          'n8n',
+          'None yet',
+          'Other'
+        ]
+      },
+      {
+        id: 'system-reliability',
+        text: 'How often do your critical systems experience downtime or performance issues?',
+        description: 'System reliability affects our AI deployment strategy and the level of redundancy we recommend.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Frequent issues (weekly problems affecting productivity)',
+          'Occasional issues (monthly disruptions)',
+          'Rare issues (quarterly minor problems)',
+          'Highly reliable (minimal downtime, strong monitoring)'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'automation-ai-agents',
+    title: 'Automation & AI Agents',
+    description: 'Surfaces workflow bottlenecks, automation opportunities, team readiness, and preferences for deploying AI assistants.',
+    detailedDescription: 'This section identifies the best opportunities for AI agents and automation to maximize your team\'s productivity and efficiency.',
+    weight: '20%',
+    estimatedTime: '6-8 minutes',
+    questions: [
+      {
+        id: 'repetitive-tasks',
+        text: 'Which tasks regularly consume staff time and could be improved or automated?',
+        description: 'Identifying repetitive tasks helps us prioritize the highest-impact AI automation opportunities.',
+        type: 'multiselect',
+        required: true,
+        options: [
+          'Reporting / dashboard updates',
+          'Scheduling meetings or reminders',
+          'Email or Slack follow-ups',
+          'Data entry / copy-paste',
+          'Answering routine client questions / FAQs',
+          'Internal status updates',
+          'Ticket tagging or triage',
+          'Other'
+        ]
+      },
+      {
+        id: 'manual-customer-journeys',
+        text: 'Which customer-facing processes have excessive manual intervention?',
+        description: 'Customer journey automation can significantly improve experience while reducing team workload.',
+        type: 'multiselect',
+        required: true,
+        options: [
+          'Onboarding',
+          'Support request resolution',
+          'Invoicing & payments',
+          'FAQ handling',
+          'Community moderation',
+          'None / N.A.'
+        ]
+      },
+      {
+        id: 'automated-alerts',
+        text: 'Have you set up automated alerts for your workflows?',
+        description: 'Existing alert systems indicate automation maturity and readiness for more sophisticated AI monitoring.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Yes – fully reliable',
+          'Partially – only for critical events',
+          'None – manual monitoring'
+        ]
+      },
+      {
+        id: 'top-automation-priority',
+        text: 'Which process would you prioritize for automation?',
+        description: 'Understanding your top priority helps us focus our AI recommendations on your most pressing needs.',
+        type: 'textarea',
+        required: false
+      },
+      {
+        id: 'never-automate',
+        text: 'Which processes must remain human-managed?',
+        description: 'Identifying processes that should stay human ensures our AI recommendations respect your business values and requirements.',
+        type: 'textarea',
+        required: false
+      },
+      {
+        id: 'ai-agent-tasks',
+        text: 'Identify areas where an AI assistant could provide immediate value.',
+        description: 'These represent the quickest wins for AI agent deployment in your organization.',
+        type: 'multiselect',
+        required: true,
+        options: [
+          'Customer support (chat / email)',
+          'Report generation & insights',
+          'Drafting emails or messages',
+          'Lead qualification & scoring',
+          'Summarizing meetings & action items',
+          'Market / competitor research',
+          'Onboarding flows & checklist enforcement',
+          'Monitoring & alerts',
+          'Other'
+        ]
+      },
+      {
+        id: 'agent-autonomy',
+        text: 'How much control should you retain when using AI assistants?',
+        description: 'Your comfort with AI autonomy determines the type of agents we recommend and how they\'re deployed.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Fully autonomous – end-to-end execution',
+          'Human-in-the-loop – requires approval before action',
+          'Assistant only – suggests, no execution',
+          'Not sure yet'
+        ]
+      },
+      {
+        id: 'agent-interface',
+        text: 'How would you prefer to interact with an AI agent?',
+        description: 'Interface preference affects user adoption and determines the best deployment approach for your team.',
+        type: 'multiselect',
+        required: true,
+        options: [
+          'Chatbot in Slack / Teams',
+          'Embedded widget (in Notion, CRM, etc.)',
+          'Stand-alone dashboard interface',
+          'Email-based assistant',
+          'Command-line / API',
+          'Need guidance'
+        ]
+      },
+      {
+        id: 'deployment-blockers',
+        text: 'What challenges could delay or complicate AI agent deployment?',
+        description: 'Understanding potential blockers helps us design implementation strategies that address your specific constraints.',
+        type: 'multiselect',
+        required: true,
+        options: [
+          'Data not ready / too siloed',
+          'Team not aligned on use-cases',
+          'Lack of technical support',
+          'Budget constraints',
+          'Privacy or compliance concerns',
+          'Unclear ROI',
+          'Other'
+        ]
+      },
+      {
+        id: 'agent-data-access',
+        text: 'Which data sources would an agent need access to?',
+        description: 'Data access requirements help us design secure, effective AI agents that can provide meaningful assistance.',
+        type: 'multiselect',
+        required: true,
+        options: [
+          'Customer records / CRM',
+          'Product usage events',
+          'Financial / billing data',
+          'Knowledge base / Docs / FAQs',
+          'Operations / logistics tables',
+          'None / unsure yet',
+          'Other'
+        ]
+      },
+      {
+        id: 'process-documentation',
+        text: 'How well documented are your current workflows and processes?',
+        description: 'Process documentation quality affects how quickly we can deploy AI agents and how accurately they can assist your team.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Mostly undocumented – knowledge in people\'s heads',
+          'Basic documentation for some key processes',
+          'Good documentation that\'s regularly updated',
+          'Comprehensive, detailed process documentation with clear standards'
+        ]
+      },
+      {
+        id: 'automation-maturity',
+        text: 'How successful have your previous automation efforts been?',
+        description: 'Past automation experience indicates your team\'s readiness for more advanced AI-powered automation.',
+        type: 'radio',
+        required: true,
+        options: [
+          'No significant automation attempts yet',
+          'Basic automation with mixed results and frequent maintenance needs',
+          'Good automation success with reliable workflows for routine tasks',
+          'Advanced automation with sophisticated workflows and monitoring',
+          'Comprehensive automation strategy with continuous optimization'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'team-ai-literacy',
+    title: 'Team AI Literacy & Development',
+    description: 'Assesses team experience, skill levels, knowledge-sharing, upskilling, and responsibility for AI initiatives.',
+    detailedDescription: 'Understanding your team\'s AI experience and learning culture helps us recommend the right training and support approaches.',
+    weight: '15%',
+    estimatedTime: '5-6 minutes',
+    questions: [
+      {
+        id: 'current-ai-tools',
+        text: 'Which AI-powered tools are already in use by your team?',
+        description: 'Current AI tool usage indicates your team\'s comfort level and existing familiarity with AI workflows.',
+        type: 'multiselect',
+        required: true,
+        options: [
+          'ChatGPT (OpenAI)',
+          'Claude (Anthropic)',
+          'Custom GPTs / assistants',
+          'Notion AI',
+          'Canva AI / Copy.ai (content creation)',
+          'GitHub Copilot / Replit / Ghostwriter (coding)',
+          'None yet',
+          'Other'
+        ]
+      },
+      {
+        id: 'ai-usage-frequency',
+        text: 'How often do team members use AI tools in their tasks?',
+        description: 'Usage frequency indicates adoption readiness and potential resistance to new AI implementations.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Daily',
+          'Weekly',
+          'Occasionally',
+          'Rarely',
+          'Never'
+        ]
+      },
+      {
+        id: 'ai-use-cases',
+        text: 'What do you currently use AI tools for?',
+        description: 'Current use cases help us understand where your team sees value and where we can expand AI adoption.',
+        type: 'multiselect',
+        required: true,
+        options: [
+          'Content creation & copywriting',
+          'Data analysis & insights',
+          'Coding & code review',
+          'Brainstorming / ideation',
+          'Summarizing meetings / memos',
+          'Customer support responses',
+          'Reporting & slide generation',
+          'Other'
+        ]
+      },
+      {
+        id: 'skill-exposure-level',
+        text: 'Which best describes your team\'s combined familiarity and practice with AI tools?',
+        description: 'Skill level determines the complexity of AI solutions we can recommend and the training support needed.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Beginner – under 1 hour learning, basic usage',
+          'Explorer – 1–5 hours, reuse & tweak prompts',
+          'Practitioner – 6–20 hours, write structured prompts',
+          'Power User – over 20 hours, builds prompt chains & workflows',
+          'Highly varied across team'
+        ]
+      },
+      {
+        id: 'knowledge-sharing',
+        text: 'How does your team share knowledge around AI usage?',
+        description: 'Knowledge sharing culture affects how quickly new AI tools and techniques will be adopted across your team.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Yes – regularly share tips, maintain a library',
+          'Occasionally share tips',
+          'Mostly siloed – minimal sharing',
+          'Did not know this was possible / allowed'
+        ]
+      },
+      {
+        id: 'upskilling-approach',
+        text: 'How is your team building skills around AI?',
+        description: 'Your current upskilling approach helps us recommend appropriate training and support strategies.',
+        type: 'radio',
+        required: true,
+        options: [
+          'No formal upskilling approach yet',
+          'Ad-hoc self-learning',
+          'Dedicated training budget (courses, workshops)',
+          'Cross-functional AI champions lead sessions',
+          'Structured curriculum with certification roadmap'
+        ]
+      },
+      {
+        id: 'ai-ownership',
+        text: 'How is responsibility for AI distributed in your organization?',
+        description: 'AI ownership structure affects implementation speed and the level of coordination needed for success.',
+        type: 'radio',
+        required: true,
+        options: [
+          'No owner yet – looking for one',
+          'Single champion (part-time)',
+          '2–3 cross-functional leads',
+          'Dedicated AI / data squad',
+          'Outsourced to external advisors or consultants'
+        ]
+      },
+      {
+        id: 'learning-adaptability',
+        text: 'How quickly does your team typically adapt to new tools and technologies?',
+        description: 'Learning pace affects our rollout strategy and the timeline for realizing AI benefits.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Slow adoption (several months to see regular usage)',
+          'Moderate adoption (4–8 weeks with training support)',
+          'Fast adoption (2–4 weeks with good onboarding)',
+          'Very fast adoption (within 1–2 weeks, largely self-directed)'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'ethics-experimentation',
+    title: 'Ethics & Experimentation',
+    description: 'Assesses how your organization manages AI risks, fairness, transparency, and experimentation practices.',
+    detailedDescription: 'Responsible AI deployment requires proper risk management, ethics consideration, and systematic experimentation approaches.',
+    weight: '10%',
+    estimatedTime: '5 minutes',
+    questions: [
+      {
+        id: 'ai-risk-management',
+        text: 'How does your team handle risks, bias, and potential ethical concerns in AI systems?',
+        description: 'Risk management approach determines the safeguards we need to build into your AI implementations.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Reactive – fix issues as they appear',
+          'Basic – pre-launch bias checks on models',
+          'Regular – ethics reviews & audits each release cycle',
+          'Integrated – formal risk framework and sign-off workflow'
+        ]
+      },
+      {
+        id: 'model-explainability',
+        text: 'How transparent are your AI systems and outputs?',
+        description: 'Explainability requirements affect the types of AI models and deployment approaches we can recommend.',
+        type: 'radio',
+        required: true,
+        options: [
+          'None – black-box models, no records kept',
+          'Partial – logs only for major models',
+          'Good – explanations available for critical models',
+          'Comprehensive – explanations and audit logs for all models'
+        ]
+      },
+      {
+        id: 'experimentation-cadence',
+        text: 'How often does your team experiment with new AI features or models?',
+        description: 'Experimentation frequency indicates your organization\'s innovation culture and readiness for continuous AI improvement.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Rare / ad-hoc',
+          'Quarterly pilots',
+          'Monthly experiments',
+          'Continuous – weekly or faster iterations'
+        ]
+      },
+      {
+        id: 'failure-strategy',
+        text: 'What happens when an AI model or feature doesn\'t work as expected?',
+        description: 'Failure handling strategy affects the resilience and reliability of AI systems we can recommend.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Manual fixes by the team',
+          'Monitoring alerts + manual rollback',
+          'Automated rollback to prior stable version',
+          'Self-healing systems with automated rollback & logging'
+        ]
+      },
+      {
+        id: 'ethics-owner',
+        text: 'Who is responsible for ensuring ethical AI practices in your company?',
+        description: 'Ethics ownership ensures accountability and proper governance for your AI initiatives.',
+        type: 'radio',
+        required: true,
+        options: [
+          'No one yet',
+          'Founder / C-level assumes role',
+          'Dedicated ethics lead or committee',
+          'External advisors / legal counsel'
+        ]
+      },
+      {
+        id: 'failure-tolerance',
+        text: 'How does your organization handle failed experiments or unsuccessful pilots?',
+        description: 'Failure tolerance affects the types of AI experiments we can recommend and the innovation pace we can achieve.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Avoid failure – stick to proven approaches only',
+          'Learn from failure but discourage risk-taking',
+          'Encourage smart risks with systematic learning from failures',
+          'Celebrate intelligent failures as essential for innovation'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'metadata-respondent-info',
+    title: 'Metadata & Respondent Info',
+    description: 'Used to personalize your report, segment results, and ensure relevant recommendations.',
+    detailedDescription: 'This information helps us provide personalized insights and recommendations tailored to your specific context and industry.',
+    weight: '5%',
+    estimatedTime: '3-4 minutes',
+    questions: [
+      {
+        id: 'email',
+        text: 'Where should we send your personalized report?',
+        description: 'Required for delivering your assessment results and insights.',
+        type: 'text',
+        required: true
+      },
+      {
+        id: 'full-name',
+        text: 'Full Name',
+        description: 'Used for personalization and direct communication.',
+        type: 'text',
+        required: false
+      },
+      {
+        id: 'role',
+        text: 'Select the option that best describes your role:',
+        description: 'Your role helps us tailor recommendations to your perspective and responsibilities.',
+        type: 'dropdown',
+        required: true,
+        options: [
+          'Founder',
+          'C-level / Executive',
+          'Operations',
+          'Product',
+          'Technical',
+          'Other'
+        ]
+      },
+      {
+        id: 'company-name',
+        text: 'Company Name',
+        description: 'Optional field for report personalization.',
+        type: 'text',
+        required: false
+      },
+      {
+        id: 'company-size',
+        text: 'How many people work at your company?',
+        description: 'Company size affects our recommendations for AI implementation scale and approach.',
+        type: 'dropdown',
+        required: true,
+        options: [
+          '1–5',
+          '6–10',
+          '11–20',
+          '21–50',
+          '51–100',
+          '101–250',
+          '251+'
+        ]
+      },
+      {
+        id: 'country',
+        text: 'Country',
+        description: 'Used for regional compliance and regulatory considerations.',
+        type: 'dropdown',
+        required: true,
+        options: [
+          'United States',
+          'United Kingdom',
+          'Germany',
+          'France',
+          'Canada',
+          'Australia',
+          'Netherlands',
+          'Spain',
+          'Italy',
+          'Other'
+        ]
+      },
+      {
+        id: 'sector-industry',
+        text: 'Sector / Industry',
+        description: 'Industry context helps us provide sector-specific AI recommendations.',
+        type: 'text',
+        required: true
+      },
+      {
+        id: 'annual-revenue',
+        text: 'What is your company\'s approximate annual revenue?',
+        description: 'Revenue range helps us recommend AI solutions appropriate for your scale and budget.',
+        type: 'dropdown',
+        required: true,
+        options: [
+          'Less than €250k',
+          '€250k–1M',
+          '€1M–5M',
+          '€5M–20M',
+          'More than €20M'
+        ]
+      },
+      {
+        id: 'regulated-industry',
+        text: 'Does your business operate in a regulated industry (e.g., healthcare, finance, etc.)?',
+        description: 'Regulatory status affects compliance requirements for AI implementations.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Yes',
+          'No',
+          'Not sure'
+        ]
+      },
+      {
+        id: 'website',
+        text: 'Website',
+        description: 'Optional field for additional context.',
+        type: 'text',
+        required: false
+      },
+      {
+        id: 'personal-ai-maturity',
+        text: 'How would you rate your personal familiarity with AI tools?',
+        description: 'Your personal AI experience helps us calibrate recommendations to your knowledge level.',
+        type: 'radio',
+        required: true,
+        options: [
+          '1 (Beginner)',
+          '2',
+          '3',
+          '4',
+          '5 (Expert)'
+        ]
+      },
+      {
+        id: 'team-ai-maturity',
+        text: 'How would you rate your team\'s overall AI familiarity and usage?',
+        description: 'Team AI maturity affects implementation complexity and training requirements.',
+        type: 'radio',
+        required: true,
+        options: [
+          '1 (None)',
+          '2',
+          '3',
+          '4',
+          '5 (Fully integrated)'
+        ]
+      },
+      {
+        id: 'priority-timeframe',
+        text: 'What timeframe best reflects your current AI priorities?',
+        description: 'Priority timeframe helps us recommend the right balance of quick wins vs. strategic investments.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Quick Wins (0–1 month)',
+          'Mid-Term ROI (1–3 months)',
+          'Long-Term Strategy (3–6 months)'
+        ]
+      }
+    ]
   }
-  // Additional sections would be added here following the same pattern
 ];
