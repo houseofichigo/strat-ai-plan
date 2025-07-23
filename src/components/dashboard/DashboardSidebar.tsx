@@ -20,6 +20,8 @@ import {
   Shield,
   MessageSquare,
   Settings,
+  Crown,
+  Headphones
 } from 'lucide-react';
 
 const menuItems = [
@@ -31,7 +33,8 @@ const menuItems = [
   { title: 'Training', url: '/dashboard/training', icon: GraduationCap },
   { title: 'GDPR', url: '/dashboard/gdpr', icon: Shield },
   { title: 'Playground', url: '/dashboard/playground', icon: MessageSquare },
-  { title: 'Admin', url: '/dashboard/admin', icon: Settings },
+  { title: 'Services', url: '/dashboard/services', icon: Headphones },
+  { title: 'Admin', url: '/dashboard/admin', icon: Crown },
 ];
 
 export function DashboardSidebar() {
