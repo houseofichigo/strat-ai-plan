@@ -8,6 +8,7 @@ import { Agents } from '@/components/dashboard/Agents';
 import { Workflows } from '@/components/dashboard/Workflows';
 import { RoadmapBuilder } from '@/components/dashboard/RoadmapBuilder';
 import { TrainingCenter } from '@/components/dashboard/TrainingCenter';
+import { ResourceHub } from '@/components/dashboard/ResourceHub';
 import { GDPRRegistry } from '@/components/dashboard/GDPRRegistry';
 import { Playground } from '@/components/dashboard/Playground';
 import { AdminPanel } from '@/components/dashboard/AdminPanel';
@@ -27,6 +28,7 @@ export default function Dashboard() {
             <Route path="/workflows" element={<Workflows />} />
             <Route path="/roadmap" element={<RoadmapBuilder />} />
             <Route path="/training" element={<TrainingCenter />} />
+            <Route path="/resources" element={<ResourceHub />} />
             <Route path="/gdpr" element={<GDPRRegistry />} />
             <Route path="/playground" element={<Playground />} />
             <Route path="/services" element={<Services />} />
