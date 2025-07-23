@@ -3,9 +3,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface ScoreCardProps {
   title: string;
-  value: number;
+  value: number | string;
   color: 'success' | 'warning' | 'destructive' | 'info' | 'primary';
   description: string;
+  trend?: 'up' | 'down';
 }
 
 export function ScoreCard({ title, value, color, description }: ScoreCardProps) {

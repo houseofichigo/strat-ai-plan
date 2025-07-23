@@ -1,19 +1,34 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { ScoreCard } from '../components/ScoreCard';
 import { RadarChart } from '../components/RadarChart';
+import { TrendingUp, TrendingDown, AlertTriangle, CheckCircle } from 'lucide-react';
 
 export function OverviewTab() {
   return (
-    <div className="space-y-6">
-      <div className="text-center mb-8">
-        <h2 className="text-4xl font-bold text-primary mb-2">Executive Overview</h2>
-        <p className="text-muted-foreground text-lg">
-          A comprehensive view of your organization's AI and data readiness across all five critical pillars
+    <div className="space-y-8">
+      {/* Header Section */}
+      <div className="text-center space-y-4">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full">
+          <CheckCircle className="w-5 h-5 text-primary" />
+          <span className="text-sm font-medium text-primary">Assessment Complete</span>
+        </div>
+        <h1 className="text-4xl font-bold tracking-tight">AI & Data Readiness Report</h1>
+        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          Your comprehensive assessment across all dimensions of AI and data transformation readiness
         </p>
       </div>
 
+      {/* Key Metrics Grid */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <ScoreCard 
+          title="Overall Score" 
+          value="3.1/5.0" 
+          color="primary" 
+          description="62% AI Ready"
+          trend="up"
+        />
         <ScoreCard 
           title="Strong Areas" 
           value={2} 
@@ -27,110 +42,214 @@ export function OverviewTab() {
           description="Progressing well"
         />
         <ScoreCard 
-          title="Focus Areas" 
-          value={1} 
-          color="destructive" 
-          description="Needs attention"
-        />
-        <ScoreCard 
-          title="Key Recommendations" 
+          title="Priority Actions" 
           value={12} 
-          color="info" 
-          description="Action items"
+          color="destructive" 
+          description="Immediate focus needed"
         />
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Overall Readiness Score</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-center mb-6">
-              <div className="text-6xl font-bold text-primary mb-2">3.1/5.0</div>
-              <div className="w-full bg-muted rounded-full h-4 mb-4">
-                <div className="bg-primary h-4 rounded-full" style={{ width: '62%' }}></div>
+      {/* Main Dashboard Grid */}
+      <div className="grid gap-8 lg:grid-cols-3">
+        {/* Readiness Score - Takes 2 columns */}
+        <div className="lg:col-span-2">
+          <Card className="h-full">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-xl">Overall AI Readiness</CardTitle>
+                <Badge variant="secondary">Updated Today</Badge>
               </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-6">
+                {/* Score Display */}
+                <div className="text-center space-y-4">
+                  <div className="relative inline-flex items-center justify-center w-32 h-32">
+                    <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 120 120">
+                      <circle cx="60" cy="60" r="50" fill="none" stroke="hsl(var(--muted))" strokeWidth="8"/>
+                      <circle cx="60" cy="60" r="50" fill="none" stroke="hsl(var(--primary))" strokeWidth="8"
+                              strokeLinecap="round" strokeDasharray={`${62 * 3.14} ${100 * 3.14}`}/>
+                    </svg>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="text-center">
+                        <div className="text-3xl font-bold text-primary">3.1</div>
+                        <div className="text-sm text-muted-foreground">out of 5.0</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="text-lg font-semibold">Developing Stage</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Good foundation with clear opportunities for improvement
+                    </p>
+                  </div>
+                </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Pillar Assessment Radar</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <RadarChart />
-          </CardContent>
-        </Card>
+                {/* Progress Breakdown */}
+                <div className="space-y-4">
+                  <h4 className="font-semibold">Score Breakdown</h4>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span>Data Foundation</span>
+                        <span className="font-medium">3.5/5</span>
+                      </div>
+                      <div className="w-full bg-muted rounded-full h-2">
+                        <div className="bg-primary h-2 rounded-full" style={{ width: '70%' }}></div>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span>AI Strategy</span>
+                        <span className="font-medium text-warning">2.8/5</span>
+                      </div>
+                      <div className="w-full bg-muted rounded-full h-2">
+                        <div className="bg-warning h-2 rounded-full" style={{ width: '56%' }}></div>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span>Technology</span>
+                        <span className="font-medium">3.2/5</span>
+                      </div>
+                      <div className="w-full bg-muted rounded-full h-2">
+                        <div className="bg-primary h-2 rounded-full" style={{ width: '64%' }}></div>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span>Team Readiness</span>
+                        <span className="font-medium text-warning">2.9/5</span>
+                      </div>
+                      <div className="w-full bg-muted rounded-full h-2">
+                        <div className="bg-warning h-2 rounded-full" style={{ width: '58%' }}></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Radar Chart */}
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Capability Radar</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <RadarChart />
+            </CardContent>
+          </Card>
+          
+          {/* Quick Actions */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Quick Actions</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <button className="w-full p-3 text-left hover:bg-accent rounded-lg transition-colors">
+                <div className="flex items-center gap-3">
+                  <TrendingUp className="w-4 h-4 text-success" />
+                  <div>
+                    <div className="font-medium text-sm">View Opportunities</div>
+                    <div className="text-xs text-muted-foreground">Impact vs Effort analysis</div>
+                  </div>
+                </div>
+              </button>
+              <button className="w-full p-3 text-left hover:bg-accent rounded-lg transition-colors">
+                <div className="flex items-center gap-3">
+                  <AlertTriangle className="w-4 h-4 text-warning" />
+                  <div>
+                    <div className="font-medium text-sm">Priority Actions</div>
+                    <div className="text-xs text-muted-foreground">12 recommendations</div>
+                  </div>
+                </div>
+              </button>
+            </CardContent>
+          </Card>
+        </div>
       </div>
 
+      {/* Detailed Pillar Breakdown */}
       <Card>
         <CardHeader>
-          <CardTitle>Pillar Breakdown</CardTitle>
+          <CardTitle className="text-xl">Detailed Pillar Assessment</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex items-center justify-between p-4 border rounded-lg">
-            <div>
-              <h3 className="font-semibold">Data Foundation</h3>
-              <p className="text-sm text-muted-foreground">Data architecture and governance</p>
-            </div>
-            <div className="text-right">
-              <div className="text-xl font-bold text-primary">3.5/5</div>
-              <div className="w-32 bg-muted rounded-full h-2">
-                <div className="bg-primary h-2 rounded-full" style={{ width: '70%' }}></div>
+        <CardContent>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors">
+                <div className="flex items-center gap-3">
+                  <CheckCircle className="w-5 h-5 text-success" />
+                  <div>
+                    <h3 className="font-semibold">Data Foundation</h3>
+                    <p className="text-sm text-muted-foreground">Strong data infrastructure and governance</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-lg font-bold text-success">3.5/5</div>
+                  <Badge variant="outline" className="text-xs">Strong</Badge>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors">
+                <div className="flex items-center gap-3">
+                  <CheckCircle className="w-5 h-5 text-primary" />
+                  <div>
+                    <h3 className="font-semibold">Technology Stack</h3>
+                    <p className="text-sm text-muted-foreground">Modern infrastructure with integration gaps</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-lg font-bold text-primary">3.2/5</div>
+                  <Badge variant="outline" className="text-xs">Good</Badge>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors">
+                <div className="flex items-center gap-3">
+                  <CheckCircle className="w-5 h-5 text-primary" />
+                  <div>
+                    <h3 className="font-semibold">Governance & Ethics</h3>
+                    <p className="text-sm text-muted-foreground">Policies established, enforcement needed</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-lg font-bold text-primary">3.1/5</div>
+                  <Badge variant="outline" className="text-xs">Good</Badge>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="flex items-center justify-between p-4 border rounded-lg">
-            <div>
-              <h3 className="font-semibold">AI Strategy</h3>
-              <p className="text-sm text-muted-foreground">Strategic planning and vision</p>
-            </div>
-            <div className="text-right">
-              <div className="text-xl font-bold text-warning">2.8/5</div>
-              <div className="w-32 bg-muted rounded-full h-2">
-                <div className="bg-warning h-2 rounded-full" style={{ width: '56%' }}></div>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors">
+                <div className="flex items-center gap-3">
+                  <TrendingDown className="w-5 h-5 text-warning" />
+                  <div>
+                    <h3 className="font-semibold">Talent & Culture</h3>
+                    <p className="text-sm text-muted-foreground">Skills development and training needed</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-lg font-bold text-warning">2.9/5</div>
+                  <Badge variant="secondary" className="text-xs">Developing</Badge>
+                </div>
               </div>
-            </div>
-          </div>
 
-          <div className="flex items-center justify-between p-4 border rounded-lg">
-            <div>
-              <h3 className="font-semibold">Technology Stack</h3>
-              <p className="text-sm text-muted-foreground">Infrastructure and tools</p>
-            </div>
-            <div className="text-right">
-              <div className="text-xl font-bold text-primary">3.2/5</div>
-              <div className="w-32 bg-muted rounded-full h-2">
-                <div className="bg-primary h-2 rounded-full" style={{ width: '64%' }}></div>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between p-4 border rounded-lg">
-            <div>
-              <h3 className="font-semibold">Talent & Culture</h3>
-              <p className="text-sm text-muted-foreground">Skills and organizational readiness</p>
-            </div>
-            <div className="text-right">
-              <div className="text-xl font-bold text-warning">2.9/5</div>
-              <div className="w-32 bg-muted rounded-full h-2">
-                <div className="bg-warning h-2 rounded-full" style={{ width: '58%' }}></div>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between p-4 border rounded-lg">
-            <div>
-              <h3 className="font-semibold">Governance & Ethics</h3>
-              <p className="text-sm text-muted-foreground">Policies and compliance</p>
-            </div>
-            <div className="text-right">
-              <div className="text-xl font-bold text-primary">3.1/5</div>
-              <div className="w-32 bg-muted rounded-full h-2">
-                <div className="bg-primary h-2 rounded-full" style={{ width: '62%' }}></div>
+              <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors">
+                <div className="flex items-center gap-3">
+                  <TrendingDown className="w-5 h-5 text-warning" />
+                  <div>
+                    <h3 className="font-semibold">AI Strategy</h3>
+                    <p className="text-sm text-muted-foreground">Clear vision needed, use cases undefined</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-lg font-bold text-warning">2.8/5</div>
+                  <Badge variant="secondary" className="text-xs">Developing</Badge>
+                </div>
               </div>
             </div>
           </div>
