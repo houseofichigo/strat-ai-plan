@@ -14,16 +14,243 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      activity_log: {
+        Row: {
+          action_details: Json | null
+          action_type: string
+          created_at: string | null
+          department: string | null
+          id: string
+          license_id: string | null
+          user_id: string
+        }
+        Insert: {
+          action_details?: Json | null
+          action_type: string
+          created_at?: string | null
+          department?: string | null
+          id?: string
+          license_id?: string | null
+          user_id: string
+        }
+        Update: {
+          action_details?: Json | null
+          action_type?: string
+          created_at?: string | null
+          department?: string | null
+          id?: string
+          license_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "activity_log_license_id_fkey"
+            columns: ["license_id"]
+            isOneToOne: false
+            referencedRelation: "licenses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      license_assignments: {
+        Row: {
+          assigned_at: string | null
+          assigned_by: string
+          id: string
+          license_id: string
+          user_id: string
+        }
+        Insert: {
+          assigned_at?: string | null
+          assigned_by: string
+          id?: string
+          license_id: string
+          user_id: string
+        }
+        Update: {
+          assigned_at?: string | null
+          assigned_by?: string
+          id?: string
+          license_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "license_assignments_license_id_fkey"
+            columns: ["license_id"]
+            isOneToOne: false
+            referencedRelation: "licenses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      licenses: {
+        Row: {
+          company_name: string
+          created_at: string | null
+          id: string
+          is_active: boolean | null
+          license_owner_id: string
+          plan: Database["public"]["Enums"]["license_plan"]
+          seats_total: number
+          seats_used: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          company_name: string
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          license_owner_id: string
+          plan: Database["public"]["Enums"]["license_plan"]
+          seats_total: number
+          seats_used?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          company_name?: string
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          license_owner_id?: string
+          plan?: Database["public"]["Enums"]["license_plan"]
+          seats_total?: number
+          seats_used?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          company_name: string | null
+          created_at: string | null
+          department: string | null
+          email: string
+          full_name: string | null
+          id: string
+          last_activity: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          company_name?: string | null
+          created_at?: string | null
+          department?: string | null
+          email: string
+          full_name?: string | null
+          id?: string
+          last_activity?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          company_name?: string | null
+          created_at?: string | null
+          department?: string | null
+          email?: string
+          full_name?: string | null
+          id?: string
+          last_activity?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      usage_stats: {
+        Row: {
+          agents_deployed: number | null
+          created_at: string | null
+          date: string
+          id: string
+          license_id: string | null
+          login_count: number | null
+          time_on_platform: number | null
+          trainings_completed: number | null
+          trainings_started: number | null
+          use_cases_explored: number | null
+          user_id: string
+          workflows_launched: number | null
+        }
+        Insert: {
+          agents_deployed?: number | null
+          created_at?: string | null
+          date: string
+          id?: string
+          license_id?: string | null
+          login_count?: number | null
+          time_on_platform?: number | null
+          trainings_completed?: number | null
+          trainings_started?: number | null
+          use_cases_explored?: number | null
+          user_id: string
+          workflows_launched?: number | null
+        }
+        Update: {
+          agents_deployed?: number | null
+          created_at?: string | null
+          date?: string
+          id?: string
+          license_id?: string | null
+          login_count?: number | null
+          time_on_platform?: number | null
+          trainings_completed?: number | null
+          trainings_started?: number | null
+          use_cases_explored?: number | null
+          user_id?: string
+          workflows_launched?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "usage_stats_license_id_fkey"
+            columns: ["license_id"]
+            isOneToOne: false
+            referencedRelation: "licenses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_user_license: {
+        Args: { _user_id: string }
+        Returns: string
+      }
+      has_role: {
+        Args: {
+          _user_id: string
+          _role: Database["public"]["Enums"]["app_role"]
+        }
+        Returns: boolean
+      }
+      is_license_owner: {
+        Args: { _user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "license_owner" | "user"
+      license_plan: "starter_3" | "business_5" | "enterprise_10"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +377,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "license_owner", "user"],
+      license_plan: ["starter_3", "business_5", "enterprise_10"],
+    },
   },
 } as const
