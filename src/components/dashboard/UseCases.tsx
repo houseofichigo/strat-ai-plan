@@ -8,6 +8,7 @@ import { UseCaseModal } from './usecases/UseCaseModal';
 import { HeroBannerSkeleton, CategoryRowSkeleton, UseCaseCardSkeleton } from './usecases/LoadingSkeletons';
 import { useCasesData, categories, UseCase } from '@/data/useCasesData';
 import { analytics } from '@/utils/analytics';
+import { roadmapManager } from '@/data/roadmapData';
 
 export function UseCases() {
   const [selectedUseCase, setSelectedUseCase] = useState<UseCase | null>(null);
@@ -82,6 +83,32 @@ export function UseCases() {
 
   const handleAddToRoadmap = (useCase: UseCase) => {
     analytics.track(useCase.id, 'add_to_roadmap');
+    
+    // Add to roadmap
+    const roadmapItem = roadmapManager.addItem({
+      title: useCase.title,
+      description: useCase.description,
+      category: 'Use Case',
+      type: useCase.industry[0] || 'General',
+      source: 'use-cases',
+      sourceId: useCase.id,
+      status: 'To Plan',
+      priority: useCase.complexity === 'Low' ? 'Medium' : 'High',
+      estimatedEffort: useCase.timeline || '4-6 weeks',
+      timeline: useCase.timeline || '4-6 weeks',
+      owner: useCase.industry[0] + ' Team',
+      assignees: [],
+      prerequisites: useCase.dataRequirements || [],
+      implementationSteps: useCase.implementationSteps || [],
+      successMetrics: useCase.successMetrics || [],
+      dependencies: [],
+      notes: `Added from Use Cases: ${useCase.summaryValue}`,
+      tags: [...useCase.industry, ...useCase.department, ...useCase.aiType],
+      progress: 0,
+      icon: '💡',
+      colorTheme: 'blue'
+    });
+    
     toast.success(`"${useCase.title}" added to roadmap!`);
   };
 

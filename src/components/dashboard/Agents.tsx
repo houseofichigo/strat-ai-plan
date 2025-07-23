@@ -8,6 +8,7 @@ import { AgentTemplateModal } from './agents/AgentTemplateModal';
 import { AgentLoadingSkeletons } from './agents/AgentLoadingSkeletons';
 import { agentTemplatesData, agentCategories, AgentTemplate } from '@/data/agentTemplatesData';
 import { analytics } from '@/utils/analytics';
+import { roadmapManager } from '@/data/roadmapData';
 
 export function Agents() {
   const [selectedAgent, setSelectedAgent] = useState<AgentTemplate | null>(null);
@@ -76,8 +77,34 @@ export function Agents() {
   };
 
   const handleCopy = (agent: AgentTemplate) => {
-    analytics.track(agent.id, 'add_to_roadmap'); // Using same analytics category
-    toast.success(`"${agent.name}" template copied to workspace!`);
+    analytics.track(agent.id, 'add_to_roadmap');
+    
+    // Add to roadmap
+    const roadmapItem = roadmapManager.addItem({
+      title: agent.name,
+      description: agent.shortDescription,
+      category: 'Agent',
+      type: agent.category[0] || 'General',
+      source: 'agents',
+      sourceId: agent.id,
+      status: 'To Plan',
+      priority: agent.complexity === 'Beginner' ? 'Medium' : 'High',
+      estimatedEffort: agent.setupTime,
+      timeline: agent.setupTime,
+      owner: agent.department[0] + ' Team',
+      assignees: [],
+      prerequisites: agent.stack || [],
+      implementationSteps: agent.implementationSteps || [],
+      successMetrics: agent.useCases || [],
+      dependencies: [],
+      notes: `Added from Agent Templates: ${agent.shortDescription}`,
+      tags: [...agent.category, ...agent.department, ...agent.stack],
+      progress: 0,
+      icon: '🤖',
+      colorTheme: agent.colorTheme
+    });
+    
+    toast.success(`"${agent.name}" template added to roadmap!`);
   };
 
   const handleFavorite = (agent: AgentTemplate) => {

@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { toast } from 'sonner';
 import { workflowTemplatesData, workflowCategories, sampleUserProfiles, getPersonalizedWorkflows, getPersonalizedRecommendation } from '@/data/workflowTemplatesData';
+import { roadmapManager } from '@/data/roadmapData';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
