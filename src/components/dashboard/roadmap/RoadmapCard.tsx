@@ -17,21 +17,21 @@ interface RoadmapCardProps {
 export function RoadmapCard({ item, onEdit, onDelete, isDragging }: RoadmapCardProps) {
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'Critical': return 'bg-red-100 text-red-800 border-red-200';
-      case 'High': return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'Medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'Low': return 'bg-green-100 text-green-800 border-green-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'Critical': return 'bg-destructive/10 text-destructive border-destructive/20';
+      case 'High': return 'bg-warning/10 text-warning border-warning/20';
+      case 'Medium': return 'bg-accent/10 text-accent border-accent/20';
+      case 'Low': return 'bg-success/10 text-success border-success/20';
+      default: return 'bg-muted text-muted-foreground border-border';
     }
   };
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'Use Case': return 'bg-blue-100 text-blue-800';
-      case 'Agent': return 'bg-purple-100 text-purple-800';
-      case 'Workflow': return 'bg-green-100 text-green-800';
-      case 'Training': return 'bg-orange-100 text-orange-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'Use Case': return 'bg-primary/10 text-primary border-primary/20';
+      case 'Agent': return 'bg-accent/10 text-accent border-accent/20';
+      case 'Workflow': return 'bg-success/10 text-success border-success/20';
+      case 'Training': return 'bg-warning/10 text-warning border-warning/20';
+      default: return 'bg-muted text-muted-foreground border-border';
     }
   };
 
@@ -41,41 +41,56 @@ export function RoadmapCard({ item, onEdit, onDelete, isDragging }: RoadmapCardP
 
   return (
     <Card className={cn(
-      "mb-3 cursor-pointer transition-all duration-200 hover:shadow-md",
-      isDragging && "opacity-50 rotate-3 shadow-lg"
+      "mb-4 cursor-pointer transition-all duration-300 hover:shadow-medium border-l-4 group",
+      item.priority === 'Critical' && "border-l-destructive bg-gradient-to-r from-destructive/5 to-transparent",
+      item.priority === 'High' && "border-l-warning bg-gradient-to-r from-warning/5 to-transparent",
+      item.priority === 'Medium' && "border-l-accent bg-gradient-to-r from-accent/5 to-transparent",
+      item.priority === 'Low' && "border-l-success bg-gradient-to-r from-success/5 to-transparent",
+      isDragging && "opacity-50 rotate-2 shadow-strong scale-105"
     )}>
-      <CardHeader className="pb-2">
-        <div className="flex items-start justify-between">
-          <div className="flex items-center gap-2">
-            <div className="text-lg">{item.icon}</div>
-            <div>
-              <h3 className="font-semibold text-sm line-clamp-2">{item.title}</h3>
-              <p className="text-xs text-muted-foreground line-clamp-1">{item.description}</p>
+      <CardHeader className="pb-3">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex items-start gap-3 flex-1 min-w-0">
+            <div className="p-2 bg-primary/10 rounded-md shrink-0">
+              <div className="text-lg">{item.icon}</div>
+            </div>
+            <div className="flex-1 min-w-0">
+              <h3 className="font-semibold text-sm line-clamp-2 mb-1 group-hover:text-primary transition-colors">
+                {item.title}
+              </h3>
+              <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                {item.description}
+              </p>
             </div>
           </div>
           <Button 
             size="sm" 
             variant="ghost" 
-            className="p-1 h-6 w-6"
+            className="p-1.5 h-7 w-7 opacity-60 hover:opacity-100 shrink-0"
             onClick={(e) => {
               e.stopPropagation();
               onEdit(item);
             }}
           >
-            <MoreHorizontal className="w-3 h-3" />
+            <MoreHorizontal className="w-3.5 h-3.5" />
           </Button>
         </div>
       </CardHeader>
       
       <CardContent className="pt-0">
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1 mb-3">
-          <Badge className={cn("text-xs", getCategoryColor(item.category))}>
+        {/* Enhanced Tags */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          <Badge variant="outline" className={cn("text-xs font-medium border", getCategoryColor(item.category))}>
             {item.category}
           </Badge>
-          <Badge className={cn("text-xs", getPriorityColor(item.priority))}>
+          <Badge variant="outline" className={cn("text-xs font-medium border", getPriorityColor(item.priority))}>
             {item.priority}
           </Badge>
+          {item.tags && item.tags.slice(0, 2).map((tag) => (
+            <Badge key={tag} variant="secondary" className="text-xs">
+              {tag}
+            </Badge>
+          ))}
         </div>
 
         {/* Progress */}
@@ -89,21 +104,21 @@ export function RoadmapCard({ item, onEdit, onDelete, isDragging }: RoadmapCardP
           </div>
         )}
 
-        {/* Metrics */}
-        <div className="grid grid-cols-2 gap-2 mb-3">
-          <div className="text-center p-2 bg-secondary/30 rounded-md">
-            <div className="flex items-center justify-center gap-1 text-xs font-medium">
-              <Clock className="w-3 h-3" />
-              {item.timeline}
+        {/* Enhanced Metrics */}
+        <div className="grid grid-cols-2 gap-3 mb-4">
+          <div className="p-3 bg-muted/50 rounded-lg border">
+            <div className="flex items-center gap-2 mb-1">
+              <Clock className="w-3.5 h-3.5 text-muted-foreground" />
+              <span className="text-xs font-medium text-foreground">{item.timeline}</span>
             </div>
             <div className="text-xs text-muted-foreground">Timeline</div>
           </div>
-          <div className="text-center p-2 bg-secondary/30 rounded-md">
-            <div className="flex items-center justify-center gap-1 text-xs font-medium">
-              <Users className="w-3 h-3" />
-              {item.assignees.length}
+          <div className="p-3 bg-muted/50 rounded-lg border">
+            <div className="flex items-center gap-2 mb-1">
+              <Users className="w-3.5 h-3.5 text-muted-foreground" />
+              <span className="text-xs font-medium text-foreground">{item.assignees.length}</span>
             </div>
-            <div className="text-xs text-muted-foreground">Assignees</div>
+            <div className="text-xs text-muted-foreground">Team Size</div>
           </div>
         </div>
 

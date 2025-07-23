@@ -120,51 +120,63 @@ export function RoadmapBuilder() {
           </Button>
         </div>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <Target className="w-5 h-5 text-primary" />
-                <div>
-                  <div className="text-2xl font-bold">{getTotalItems()}</div>
-                  <div className="text-sm text-muted-foreground">Total Items</div>
+        {/* Enhanced Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <Card className="bg-gradient-to-br from-background to-muted/30 border-l-4 border-l-primary shadow-soft">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="space-y-1">
+                  <div className="text-3xl font-bold text-foreground">{getTotalItems()}</div>
+                  <div className="text-sm font-medium text-muted-foreground">Total Items</div>
+                  <div className="text-xs text-muted-foreground/80">Across all stages</div>
+                </div>
+                <div className="p-3 bg-primary/10 rounded-lg">
+                  <Target className="w-6 h-6 text-primary" />
                 </div>
               </div>
             </CardContent>
           </Card>
           
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-green-500" />
-                <div>
-                  <div className="text-2xl font-bold">{getInProgressItems()}</div>
-                  <div className="text-sm text-muted-foreground">In Progress</div>
+          <Card className="bg-gradient-to-br from-background to-muted/30 border-l-4 border-l-success shadow-soft">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="space-y-1">
+                  <div className="text-3xl font-bold text-foreground">{getInProgressItems()}</div>
+                  <div className="text-sm font-medium text-muted-foreground">In Progress</div>
+                  <div className="text-xs text-success">Active development</div>
+                </div>
+                <div className="p-3 bg-success/10 rounded-lg">
+                  <TrendingUp className="w-6 h-6 text-success" />
                 </div>
               </div>
             </CardContent>
           </Card>
           
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <Calendar className="w-5 h-5 text-blue-500" />
-                <div>
-                  <div className="text-2xl font-bold">{getCompletedItems()}</div>
-                  <div className="text-sm text-muted-foreground">Completed</div>
+          <Card className="bg-gradient-to-br from-background to-muted/30 border-l-4 border-l-accent shadow-soft">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="space-y-1">
+                  <div className="text-3xl font-bold text-foreground">{getCompletedItems()}</div>
+                  <div className="text-sm font-medium text-muted-foreground">Completed</div>
+                  <div className="text-xs text-accent">Ready for use</div>
+                </div>
+                <div className="p-3 bg-accent/10 rounded-lg">
+                  <Calendar className="w-6 h-6 text-accent" />
                 </div>
               </div>
             </CardContent>
           </Card>
           
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <Users className="w-5 h-5 text-purple-500" />
-                <div>
-                  <div className="text-2xl font-bold">{getAverageProgress()}%</div>
-                  <div className="text-sm text-muted-foreground">Avg Progress</div>
+          <Card className="bg-gradient-to-br from-background to-muted/30 border-l-4 border-l-warning shadow-soft">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="space-y-1">
+                  <div className="text-3xl font-bold text-foreground">{getAverageProgress()}%</div>
+                  <div className="text-sm font-medium text-muted-foreground">Avg Progress</div>
+                  <div className="text-xs text-warning">Overall completion</div>
+                </div>
+                <div className="p-3 bg-warning/10 rounded-lg">
+                  <Users className="w-6 h-6 text-warning" />
                 </div>
               </div>
             </CardContent>
@@ -211,18 +223,27 @@ export function RoadmapBuilder() {
         </div>
       </div>
 
-      {/* Kanban Board */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 min-h-[600px]">
-        {filteredColumns.map((column) => (
-          <RoadmapColumn
-            key={column.id}
-            column={column}
-            onDropItem={handleDropItem}
-            onEditItem={handleEditItem}
-            onDeleteItem={handleDeleteItem}
-            draggedItem={draggedItem}
-          />
-        ))}
+      {/* Enhanced Kanban Board */}
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-semibold text-foreground">Implementation Board</h2>
+          <div className="text-sm text-muted-foreground">
+            Showing {filteredColumns.reduce((acc, col) => acc + col.items.length, 0)} of {getTotalItems()} items
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 min-h-[700px]">
+          {filteredColumns.map((column) => (
+            <RoadmapColumn
+              key={column.id}
+              column={column}
+              onDropItem={handleDropItem}
+              onEditItem={handleEditItem}
+              onDeleteItem={handleDeleteItem}
+              draggedItem={draggedItem}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Empty State */}

@@ -49,14 +49,20 @@ export function RoadmapColumn({
 
   return (
     <Card className={cn(
-      "h-full min-h-[600px] transition-all duration-200",
+      "h-full min-h-[700px] transition-all duration-300 shadow-soft",
+      "bg-gradient-to-b from-background to-muted/20",
       column.color,
-      isDragOver && "ring-2 ring-primary ring-offset-2 bg-primary/5"
+      isDragOver && "ring-2 ring-primary ring-offset-2 bg-primary/10 shadow-medium"
     )}>
-      <CardHeader className="pb-4">
+      <CardHeader className="pb-4 border-b border-border/50">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-lg font-semibold">{column.title}</CardTitle>
-          <Badge variant="secondary" className="text-xs">
+          <div className="space-y-1">
+            <CardTitle className="text-lg font-semibold text-foreground">{column.title}</CardTitle>
+            <p className="text-xs text-muted-foreground">
+              {getStatusCount()} {getStatusCount() === 1 ? 'item' : 'items'}
+            </p>
+          </div>
+          <Badge variant="outline" className="text-xs font-medium bg-background">
             {getStatusCount()}
           </Badge>
         </div>
@@ -69,10 +75,10 @@ export function RoadmapColumn({
         onDrop={handleDrop}
       >
         {column.items.length === 0 && (
-          <div className="text-center py-8 text-muted-foreground">
-            <div className="text-4xl mb-2">📋</div>
-            <p className="text-sm">No items yet</p>
-            <p className="text-xs">Drag items here or add new ones</p>
+          <div className="text-center py-12 text-muted-foreground border-2 border-dashed border-muted-foreground/20 rounded-lg mx-2">
+            <div className="text-5xl mb-3 opacity-50">📋</div>
+            <p className="text-sm font-medium mb-1">No items in {column.title.toLowerCase()}</p>
+            <p className="text-xs opacity-75">Drag items here or create new ones</p>
           </div>
         )}
         
@@ -93,10 +99,17 @@ export function RoadmapColumn({
           </div>
         ))}
         
-        {/* Add new item placeholder */}
-        <div className="border-2 border-dashed border-muted-foreground/30 rounded-lg p-4 text-center hover:border-primary/50 transition-colors cursor-pointer">
-          <Plus className="w-6 h-6 mx-auto mb-2 text-muted-foreground" />
-          <p className="text-sm text-muted-foreground">Add new item</p>
+        {/* Enhanced Add new item placeholder */}
+        <div className="border-2 border-dashed border-muted-foreground/30 rounded-lg p-6 text-center hover:border-primary/60 hover:bg-primary/5 transition-all duration-200 cursor-pointer group mx-2">
+          <div className="p-2 bg-muted/50 rounded-full w-fit mx-auto mb-3 group-hover:bg-primary/10 transition-colors">
+            <Plus className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+          </div>
+          <p className="text-sm text-muted-foreground group-hover:text-primary transition-colors font-medium">
+            Add new item
+          </p>
+          <p className="text-xs text-muted-foreground/70 mt-1">
+            Click to create
+          </p>
         </div>
       </CardContent>
     </Card>
