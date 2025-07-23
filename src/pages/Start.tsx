@@ -7,37 +7,37 @@ import Navigation from "@/components/Navigation";
 const segments = [
   {
     id: "microenterprise",
-    title: "Microentreprises (MIC)",
-    description: "Très petites entreprises avec moins de 10 salariés",
+    title: "Microenterprises (MIC)",
+    description: "Very small companies with fewer than 10 employees",
     icon: Rocket,
-    features: ["Solutions simples", "Coût maîtrisé", "Déploiement rapide"],
+    features: ["Simple solutions", "Controlled costs", "Quick deployment"],
     color: "border-accent hover:border-accent/60",
     bgColor: "hover:bg-accent/5"
   },
   {
-    id: "pme", 
-    title: "Petites et Moyennes Entreprises (PME)",
-    description: "Entreprises de 10 à 250 salariés",
+    id: "sme", 
+    title: "Small & Medium Enterprises (SME)",
+    description: "Companies with 10 to 250 employees",
     icon: Building2,
-    features: ["Automatisation des processus", "Solutions évolutives", "ROI mesuré"],
+    features: ["Process automation", "Scalable solutions", "Measured ROI"],
     color: "border-primary hover:border-primary/60",
     bgColor: "hover:bg-primary/5"
   },
   {
-    id: "eti",
-    title: "Entreprises de Taille Intermédiaire (ETI)",
-    description: "Entreprises de 250 à 5000 salariés",
+    id: "mid-market",
+    title: "Mid-Market Companies (MMC)",
+    description: "Companies with 250 to 5,000 employees",
     icon: TrendingUp,
-    features: ["Transformation digitale", "IA avancée", "Innovation stratégique"],
+    features: ["Digital transformation", "Advanced AI", "Strategic innovation"],
     color: "border-success hover:border-success/60",
     bgColor: "hover:bg-success/5"
   },
   {
-    id: "ge",
-    title: "Grandes Entreprises (GE)",
-    description: "Entreprises de plus de 5000 salariés",
+    id: "enterprise",
+    title: "Large Enterprises (LE)",
+    description: "Companies with more than 5,000 employees",
     icon: Factory,
-    features: ["IA à l'échelle", "Écosystème complexe", "Excellence opérationnelle"],
+    features: ["AI at scale", "Complex ecosystems", "Operational excellence"],
     color: "border-warning hover:border-warning/60",
     bgColor: "hover:bg-warning/5"
   }
@@ -58,7 +58,7 @@ const Start = () => {
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Get personalized insights about your organization's AI readiness in just 5 minutes. 
-            Choose your segment to begin.
+            Choose your company type to begin.
           </p>
         </div>
 
@@ -88,7 +88,7 @@ const Start = () => {
         {/* Segment Selection */}
         <div className="space-y-6 animate-scale-in" style={{ animationDelay: "300ms" }}>
           <h2 className="text-2xl font-semibold text-center text-foreground mb-8">
-            Choose Your Organization Type
+            Choose Your Company Type
           </h2>
           
           <div className="grid gap-4">

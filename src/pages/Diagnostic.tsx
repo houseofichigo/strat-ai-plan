@@ -12,15 +12,15 @@ const Diagnostic = () => {
   const getSegmentTitle = (segment: string | null) => {
     switch (segment) {
       case 'microenterprise':
-        return 'Microentreprises (MIC)';
-      case 'pme':
-        return 'Petites et Moyennes Entreprises (PME)';
-      case 'eti':
-        return 'Entreprises de Taille Intermédiaire (ETI)';
-      case 'ge':
-        return 'Grandes Entreprises (GE)';
+        return 'Microenterprises (MIC)';
+      case 'sme':
+        return 'Small & Medium Enterprises (SME)';
+      case 'mid-market':
+        return 'Mid-Market Companies (MMC)';
+      case 'enterprise':
+        return 'Large Enterprises (LE)';
       default:
-        return 'Votre Entreprise';
+        return 'Your Company';
     }
   };
 
@@ -35,36 +35,36 @@ const Diagnostic = () => {
             className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Retour à la sélection
+            Back to selection
           </Link>
         </div>
 
         <div className="text-center mb-12 animate-fade-in">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Évaluation IA & Data
+            AI & Data Assessment
             <span className="block bg-gradient-primary bg-clip-text text-transparent">
               {getSegmentTitle(segment)}
             </span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Évaluez la maturité IA et Data de votre organisation en 6 dimensions clés. 
-            Durée estimée : 5-10 minutes.
+            Evaluate your organization's AI and data maturity across 6 key dimensions. 
+            Estimated duration: 5-10 minutes.
           </p>
         </div>
 
         {/* Assessment Preview */}
         <Card className="p-8 mb-8 bg-gradient-card border-border/50">
           <h2 className="text-2xl font-semibold text-foreground mb-6 text-center">
-            Dimensions d'évaluation
+            Assessment Dimensions
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              "Stack Technologique",
-              "Maturité Data", 
-              "Fluence IA",
-              "Cas d'usage",
-              "Conformité",
-              "Intégration"
+              "Technology Stack",
+              "Data Maturity", 
+              "AI Fluency",
+              "Use Cases",
+              "Compliance",
+              "Integration"
             ].map((dimension, index) => (
               <div key={dimension} className="flex items-center space-x-3">
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
@@ -78,7 +78,7 @@ const Diagnostic = () => {
 
         <div className="text-center">
           <Button variant="gradient" size="xl" className="group">
-            Commencer l'évaluation
+            Start Assessment
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Button>
         </div>

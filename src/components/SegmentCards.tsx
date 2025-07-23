@@ -5,40 +5,40 @@ import { Building2, Rocket, TrendingUp, Factory, ArrowRight } from "lucide-react
 const segments = [
   {
     id: "microenterprise",
-    title: "Microentreprises (MIC)",
-    description: "Très petites entreprises avec moins de 10 salariés cherchant à optimiser leurs processus.",
+    title: "Microenterprises (MIC)",
+    description: "Very small companies with fewer than 10 employees seeking to optimize their processes.",
     icon: Rocket,
-    features: ["Solutions simples", "Coût maîtrisé", "Déploiement rapide"],
+    features: ["Simple solutions", "Controlled costs", "Quick deployment"],
     link: "/start",
     color: "bg-gradient-to-br from-accent/10 to-accent/5",
     iconColor: "text-accent"
   },
   {
-    id: "pme",
-    title: "Petites et Moyennes Entreprises (PME)",
-    description: "Entreprises de 10 à 250 salariés prêtes pour la transformation digitale.",
+    id: "sme",
+    title: "Small & Medium Enterprises (SME)",
+    description: "Companies with 10 to 250 employees ready for digital transformation.",
     icon: Building2,
-    features: ["Automatisation des processus", "Solutions évolutives", "ROI mesuré"],
+    features: ["Process automation", "Scalable solutions", "Measured ROI"],
     link: "/start",
     color: "bg-gradient-to-br from-primary/10 to-primary/5",
     iconColor: "text-primary"
   },
   {
-    id: "eti",
-    title: "Entreprises de Taille Intermédiaire (ETI)",
-    description: "Entreprises de 250 à 5000 salariés visant l'excellence opérationnelle par l'IA.",
+    id: "mid-market",
+    title: "Mid-Market Companies (MMC)",
+    description: "Companies with 250 to 5,000 employees aiming for operational excellence through AI.",
     icon: TrendingUp,
-    features: ["Transformation digitale", "IA avancée", "Innovation stratégique"],
+    features: ["Digital transformation", "Advanced AI", "Strategic innovation"],
     link: "/start",
     color: "bg-gradient-to-br from-success/10 to-success/5",
     iconColor: "text-success"
   },
   {
-    id: "ge",
-    title: "Grandes Entreprises (GE)",
-    description: "Entreprises de plus de 5000 salariés déployant l'IA à grande échelle.",
+    id: "enterprise",
+    title: "Large Enterprises (LE)",
+    description: "Companies with more than 5,000 employees deploying AI at scale.",
     icon: Factory,
-    features: ["IA à l'échelle", "Écosystème complexe", "Excellence opérationnelle"],
+    features: ["AI at scale", "Complex ecosystems", "Operational excellence"],
     link: "/start",
     color: "bg-gradient-to-br from-warning/10 to-warning/5",
     iconColor: "text-warning"
@@ -51,11 +51,11 @@ const SegmentCards = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Adapté à Votre Taille d'Entreprise
+            Tailored for Your Business Size
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Que vous soyez une microentreprise, PME, ETI ou grande entreprise, 
-            notre plateforme fournit des insights spécifiques à vos besoins et votre contexte industriel.
+            Whether you're a microenterprise, SME, mid-market company, or large enterprise, 
+            our platform provides insights specific to your needs and industry context.
           </p>
         </div>
 
@@ -108,7 +108,7 @@ const SegmentCards = () => {
         <div className="text-center mt-12">
           <Button variant="gradient" size="xl" asChild>
             <Link to="/start" className="group">
-              Commencer Votre Évaluation
+              Start Your Assessment
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </Button>
