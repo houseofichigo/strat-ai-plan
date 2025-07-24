@@ -11,6 +11,7 @@ import { SolutionHeroBanner } from './solutions/SolutionHeroBanner';
 import { SolutionCategoryRow } from './solutions/SolutionCategoryRow';
 import { SimilarSolutions } from './solutions/SimilarSolutions';
 import { AgentTemplateModal } from './agents/AgentTemplateModal';
+import { WorkflowTemplateModal } from './solutions/WorkflowTemplateModal';
 import { Search, Filter, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
 import { useUserProfile } from '@/hooks/useUserProfile';
@@ -328,13 +329,23 @@ export function Solutions() {
       {/* Solution Modal */}
       {selectedSolution && (
         <>
-          <AgentTemplateModal
-            agent={selectedSolution.data}
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            onDeploy={() => handleDeploy(selectedSolution)}
-            onCopy={() => handleCopy(selectedSolution)}
-          />
+          {selectedSolution.type === 'agent' ? (
+            <AgentTemplateModal
+              agent={selectedSolution.data}
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              onDeploy={() => handleDeploy(selectedSolution)}
+              onCopy={() => handleCopy(selectedSolution)}
+            />
+          ) : (
+            <WorkflowTemplateModal
+              workflow={selectedSolution.data}
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              onDeploy={() => handleDeploy(selectedSolution)}
+              onCopy={() => handleCopy(selectedSolution)}
+            />
+          )}
           
           {/* Similar Solutions Component */}
           <div className="fixed bottom-4 right-4 w-80 z-50">

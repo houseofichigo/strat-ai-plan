@@ -81,13 +81,13 @@ export function SolutionHeroBanner({ featuredSolutions, onExplore }: SolutionHer
                           <p className="text-sm text-muted-foreground mb-2">Technology Stack:</p>
                           <div className="flex items-center gap-3 flex-wrap">
                             {solution.type === 'agent' 
-                              ? Object.entries(solution.data.stackIcons).slice(0, 5).map(([name, icon]) => (
+                              ? solution.data.stackIcons && Object.entries(solution.data.stackIcons).slice(0, 5).map(([name, icon]) => (
                                   <div key={name} className="flex items-center gap-1 px-2 py-1 bg-background/60 rounded-md">
                                     <span className="text-lg">{String(icon)}</span>
                                     <span className="text-xs">{name}</span>
                                   </div>
                                 ))
-                              : Object.entries(solution.data.appIcons).slice(0, 5).map(([name, icon]) => (
+                              : solution.data.appIcons && Object.entries(solution.data.appIcons).slice(0, 5).map(([name, icon]) => (
                                   <div key={name} className="flex items-center gap-1 px-2 py-1 bg-background/60 rounded-md">
                                     <span className="text-lg">{String(icon)}</span>
                                     <span className="text-xs">{name}</span>
@@ -122,12 +122,12 @@ export function SolutionHeroBanner({ featuredSolutions, onExplore }: SolutionHer
                         <div className="absolute inset-0 opacity-10">
                           <div className="grid grid-cols-3 gap-8 text-8xl">
                             {solution.type === 'agent' 
-                              ? Object.values(solution.data.stackIcons).slice(0, 6).map((icon, index) => (
+                              ? solution.data.stackIcons && Object.values(solution.data.stackIcons).slice(0, 6).map((icon, index) => (
                                   <div key={index} className="flex items-center justify-center">
                                     {String(icon)}
                                   </div>
                                 ))
-                              : Object.values(solution.data.appIcons).slice(0, 6).map((icon, index) => (
+                              : solution.data.appIcons && Object.values(solution.data.appIcons).slice(0, 6).map((icon, index) => (
                                   <div key={index} className="flex items-center justify-center">
                                     {String(icon)}
                                   </div>

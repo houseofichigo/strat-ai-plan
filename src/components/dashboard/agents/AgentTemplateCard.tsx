@@ -60,7 +60,7 @@ export function AgentTemplateCard({ agent, onPreview, onCopy, onFavorite, classN
         )}>
           {/* Stack Icons */}
           <div className="flex items-center gap-2 flex-wrap justify-center">
-            {Object.entries(agent.stackIcons).slice(0, 4).map(([name, icon]) => (
+            {agent.stackIcons && Object.entries(agent.stackIcons).slice(0, 4).map(([name, icon]) => (
               <div key={name} className="text-2xl" title={name}>
                 {icon}
               </div>

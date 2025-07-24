@@ -49,7 +49,7 @@ export function WorkflowSolutionCard({ workflow, onPreview, onCopy, onFavorite, 
         {/* Thumbnail */}
         <div className="relative h-48 bg-gradient-to-br from-purple-500/20 to-purple-600/10 flex items-center justify-center">
           <div className="flex items-center gap-2">
-            {Object.values(workflow.appIcons).slice(0, 3).map((icon, index) => (
+            {workflow.appIcons && Object.values(workflow.appIcons).slice(0, 3).map((icon, index) => (
               <div key={index} className="text-2xl">{icon}</div>
             ))}
           </div>

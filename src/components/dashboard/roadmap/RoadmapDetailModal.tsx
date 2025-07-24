@@ -301,7 +301,7 @@ export function RoadmapDetailModal({
                         <div className="flex flex-wrap gap-2">
                           {sourceData.stack.map((tech: string) => (
                             <Badge key={tech} variant="outline">
-                              {sourceData.stackIcons[tech]} {tech}
+                              {sourceData.stackIcons?.[tech]} {tech}
                             </Badge>
                           ))}
                         </div>

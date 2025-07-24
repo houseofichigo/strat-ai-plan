@@ -64,7 +64,7 @@ export function AgentHeroBanner({ featuredAgents, onExplore }: AgentHeroBannerPr
                         <div className="mb-8">
                           <p className="text-sm text-muted-foreground mb-2">Technology Stack:</p>
                           <div className="flex items-center gap-3">
-                            {Object.entries(agent.stackIcons).slice(0, 5).map(([name, icon]) => (
+                            {agent.stackIcons && Object.entries(agent.stackIcons).slice(0, 5).map(([name, icon]) => (
                               <div key={name} className="flex items-center gap-1 px-2 py-1 bg-background/60 rounded-md">
                                 <span className="text-lg">{icon}</span>
                                 <span className="text-xs">{name}</span>
@@ -97,7 +97,7 @@ export function AgentHeroBanner({ featuredAgents, onExplore }: AgentHeroBannerPr
                         {/* Large stack icons background */}
                         <div className="absolute inset-0 opacity-10">
                           <div className="grid grid-cols-3 gap-8 text-8xl">
-                            {Object.values(agent.stackIcons).slice(0, 6).map((icon, index) => (
+                            {agent.stackIcons && Object.values(agent.stackIcons).slice(0, 6).map((icon, index) => (
                               <div key={index} className="flex items-center justify-center">
                                 {icon}
                               </div>
