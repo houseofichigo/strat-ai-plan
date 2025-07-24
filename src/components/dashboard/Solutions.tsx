@@ -150,7 +150,7 @@ export function Solutions() {
           <CardContent className="p-8 lg:p-12">
             <div className="max-w-4xl">
               <Badge className="mb-4 bg-accent text-accent-foreground">
-                All-in-One Solutions Hub
+                All-in-One Hub
               </Badge>
               <h1 className="text-4xl lg:text-5xl font-bold mb-4">
                 AI Agents & Automation Workflows
