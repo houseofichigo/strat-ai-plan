@@ -657,6 +657,71 @@ export const assessmentSections: AssessmentSectionData[] = [
           'Rare issues (quarterly minor problems)',
           'Highly reliable (minimal downtime, strong monitoring)'
         ]
+      },
+      {
+        id: 'gpu-compute-resources',
+        text: 'Do you have access to dedicated GPU or high-performance compute resources for AI workloads?',
+        description: 'High-performance computing resources are essential for training and running advanced AI models efficiently.',
+        type: 'radio',
+        required: true,
+        options: [
+          'None',
+          'Experimental/sandbox only',
+          'Sufficient for current projects',
+          'Scalable and ready for future growth'
+        ]
+      },
+      {
+        id: 'resource-allocation-scaling',
+        text: 'How are compute/network resources allocated and scaled for new AI workloads?',
+        description: 'Resource allocation strategy affects how quickly you can deploy and scale AI solutions.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Manual, ad hoc',
+          'Automated for some workloads',
+          'Mostly automated with some manual oversight',
+          'Fully automated and demand-driven'
+        ]
+      },
+      {
+        id: 'high-throughput-systems',
+        text: 'Are your IT/network systems designed for high-throughput, low-latency AI data operations?',
+        description: 'Network and data infrastructure capabilities determine real-time AI application performance.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Not at all',
+          'Somewhat, only for pilot projects',
+          'Designed for moderate scaling',
+          'Fully designed for enterprise AI scale'
+        ]
+      },
+      {
+        id: 'ai-specific-security',
+        text: 'Do you have security measures specific to AI and ML workloads (beyond general IT security)?',
+        description: 'AI workloads require specialized security considerations for models, data, and inference pipelines.',
+        type: 'radio',
+        required: true,
+        options: [
+          'None',
+          'Under review/consideration',
+          'Some controls in place',
+          'Comprehensive and regularly updated'
+        ]
+      },
+      {
+        id: 'power-energy-impact',
+        text: 'Have you assessed and planned for the power/energy impact of scaling AI infrastructure?',
+        description: 'AI infrastructure can significantly impact energy consumption and operational costs.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Not considered',
+          'Limited awareness',
+          'Under assessment/planning',
+          'Fully planned and optimized'
+        ]
       }
     ]
   },
@@ -830,6 +895,19 @@ export const assessmentSections: AssessmentSectionData[] = [
           'Advanced automation with sophisticated workflows and monitoring',
           'Comprehensive automation strategy with continuous optimization'
         ]
+      },
+      {
+        id: 'ai-agent-access-controls',
+        text: 'How are permissions and access controls managed for AI agents interacting with sensitive data or systems?',
+        description: 'Proper access controls ensure AI agents operate securely within appropriate boundaries.',
+        type: 'radio',
+        required: true,
+        options: [
+          'No specific controls',
+          'Manual controls, project by project',
+          'Automated access controls for critical systems',
+          'Dynamic, real-time access control with auditing'
+        ]
       }
     ]
   },
@@ -956,6 +1034,32 @@ export const assessmentSections: AssessmentSectionData[] = [
           'Fast adoption (2–4 weeks with good onboarding)',
           'Very fast adoption (within 1–2 weeks, largely self-directed)'
         ]
+      },
+      {
+        id: 'ai-accessibility',
+        text: 'How does your organization ensure AI tools and workflows are accessible to differently abled employees?',
+        description: 'Inclusive AI design ensures all team members can benefit from AI tools and workflows.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Not considered',
+          'Limited awareness, no action',
+          'Ad-hoc adjustments as needed',
+          'Proactively included in all adoption and training'
+        ]
+      },
+      {
+        id: 'ai-talent-strategy',
+        text: 'What is your approach to attracting and retaining top AI talent?',
+        description: 'Having the right AI talent is crucial for successful AI implementation and innovation.',
+        type: 'radio',
+        required: true,
+        options: [
+          'No specific strategy',
+          'Rely on external partners',
+          'Basic retention/hiring programs',
+          'Comprehensive talent pipeline and retention plan'
+        ]
       }
     ]
   },
@@ -1044,6 +1148,32 @@ export const assessmentSections: AssessmentSectionData[] = [
           'Encourage smart risks with systematic learning from failures',
           'Celebrate intelligent failures as essential for innovation'
         ]
+      },
+      {
+        id: 'ai-bias-fairness',
+        text: 'Do you regularly check for and address fairness and bias in your AI algorithms?',
+        description: 'Regular bias monitoring ensures AI systems make fair decisions and avoid discriminatory outcomes.',
+        type: 'radio',
+        required: true,
+        options: [
+          'Never',
+          'Occasionally, on a project basis',
+          'Regularly, using automated tools or audits',
+          'Continuously monitored and adjusted'
+        ]
+      },
+      {
+        id: 'cross-border-data-compliance',
+        text: 'Do you have protocols for handling cross-border data transfers and compliance with data sovereignty laws?',
+        description: 'International data compliance is crucial for global AI deployments and avoiding regulatory penalties.',
+        type: 'radio',
+        required: true,
+        options: [
+          'No protocols in place',
+          'Limited awareness, ad hoc approach',
+          'Formal protocols for key markets',
+          'Comprehensive and regularly reviewed for all markets'
+        ]
       }
     ]
   },
@@ -1123,6 +1253,26 @@ export const assessmentSections: AssessmentSectionData[] = [
           'Netherlands',
           'Spain',
           'Italy',
+          'Sweden',
+          'Norway',
+          'Denmark',
+          'Finland',
+          'Switzerland',
+          'Austria',
+          'Belgium',
+          'Ireland',
+          'Portugal',
+          'Poland',
+          'Japan',
+          'South Korea',
+          'Singapore',
+          'Hong Kong',
+          'New Zealand',
+          'Brazil',
+          'Mexico',
+          'India',
+          'South Africa',
+          'Israel',
           'Other'
         ]
       },
@@ -1130,8 +1280,32 @@ export const assessmentSections: AssessmentSectionData[] = [
         id: 'sector-industry',
         text: 'Sector / Industry',
         description: 'Industry context helps us provide sector-specific AI recommendations.',
-        type: 'text',
-        required: true
+        type: 'dropdown',
+        required: true,
+        options: [
+          'Technology & Software',
+          'Healthcare & Life Sciences',
+          'Financial Services & Insurance',
+          'Manufacturing & Industrial',
+          'Retail & E-commerce',
+          'Professional Services',
+          'Education & Training',
+          'Media & Entertainment',
+          'Real Estate & Construction',
+          'Transportation & Logistics',
+          'Energy & Utilities',
+          'Agriculture & Food',
+          'Telecommunications',
+          'Government & Public Sector',
+          'Non-profit & NGO',
+          'Automotive',
+          'Aerospace & Defense',
+          'Pharmaceuticals & Biotech',
+          'Legal Services',
+          'Marketing & Advertising',
+          'Hospitality & Tourism',
+          'Other'
+        ]
       },
       {
         id: 'annual-revenue',
