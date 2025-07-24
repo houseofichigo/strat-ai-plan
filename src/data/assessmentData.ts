@@ -140,6 +140,7 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'ai-strategy-owner',
         text: 'Who is directly responsible for leading and updating your AI strategy?',
+        description: 'Clear ownership ensures AI initiatives have proper guidance, accountability, and strategic direction.',
         type: 'radio',
         required: true,
         options: [
@@ -153,6 +154,7 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'strategy-review-frequency',
         text: 'How often is your AI strategy formally reviewed and updated?',
+        description: 'Regular strategy reviews ensure your AI initiatives remain aligned with business goals and market changes.',
         type: 'radio',
         required: true,
         options: [
@@ -322,6 +324,7 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'ai-budget-prioritization',
         text: 'How is AI prioritized relative to other technology investments in your budget planning?',
+        description: 'Budget prioritization reflects organizational commitment and determines resource allocation for AI initiatives.',
         type: 'radio',
         required: true,
         options: [
@@ -334,6 +337,7 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'long-term-financial-plan',
         text: 'Do you have a long-term financial plan to sustain and scale AI investments?',
+        description: 'Long-term financial planning ensures sustainable AI growth and prevents short-term budget constraints from limiting success.',
         type: 'radio',
         required: true,
         options: [
@@ -467,6 +471,7 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'data-preprocessing-consistency',
         text: 'How consistently are your data sets pre-processed and cleaned to be AI-ready?',
+        description: 'Consistent data preprocessing ensures reliable AI model performance and reduces time-to-deployment for new AI initiatives.',
         type: 'radio',
         required: true,
         options: [
@@ -479,6 +484,7 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'analytics-tools-integration',
         text: 'How advanced and integrated are your analytics tools for AI-related data and projects?',
+        description: 'Advanced, integrated analytics tools accelerate AI development and enable more sophisticated data science workflows.',
         type: 'radio',
         required: true,
         options: [
@@ -491,6 +497,7 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'data-lineage-tracking',
         text: 'Do you track the origin, transformation, and usage of your data (data lineage) for AI models?',
+        description: 'Data lineage tracking ensures data quality, enables debugging of AI models, and supports regulatory compliance requirements.',
         type: 'radio',
         required: true,
         options: [
@@ -503,6 +510,7 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'external-data-validation',
         text: 'How do you validate the quality and reliability of external data sources for AI?',
+        description: 'External data validation prevents poor-quality data from compromising AI model accuracy and business decisions.',
         type: 'radio',
         required: true,
         options: [
@@ -515,6 +523,7 @@ export const assessmentSections: AssessmentSectionData[] = [
       {
         id: 'data-anonymization',
         text: 'Are personal or sensitive data sets anonymized before being used in AI applications?',
+        description: 'Data anonymization protects user privacy, ensures regulatory compliance, and reduces legal risks in AI deployments.',
         type: 'radio',
         required: true,
         options: [
