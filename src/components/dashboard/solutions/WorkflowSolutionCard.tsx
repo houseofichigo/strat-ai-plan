@@ -162,6 +162,8 @@ export function WorkflowSolutionCard({ workflow, onPreview, onCopy, onFavorite, 
           </div>
         </div>
       </CardContent>
+      
+      {/* Similar Workflows Section - This will be added by parent component */}
     </Card>
   );
 }

@@ -4,14 +4,13 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { agentTemplatesData, agentCategories, agentComplexities, agentROIs, agentDepartments } from '@/data/agentTemplatesData';
+import { agentTemplatesData, agentCategories } from '@/data/agentTemplatesData';
 import { workflowTemplatesData, workflowCategories } from '@/data/workflowTemplatesData';
-import { AgentTemplateCard } from './agents/AgentTemplateCard';
-import { WorkflowSolutionCard } from './solutions/WorkflowSolutionCard';
+import { SolutionHeroBanner } from './solutions/SolutionHeroBanner';
+import { SolutionCategoryRow } from './solutions/SolutionCategoryRow';
+import { SimilarSolutions } from './solutions/SimilarSolutions';
 import { AgentTemplateModal } from './agents/AgentTemplateModal';
-import { SolutionFilters } from './solutions/SolutionFilters';
-import { SolutionStats } from './solutions/SolutionStats';
-import { Search, Filter, Grid, List } from 'lucide-react';
+import { Search, Filter, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
 
 export type SolutionType = 'agent' | 'workflow' | 'hybrid';
@@ -41,18 +40,17 @@ export interface SolutionFilterState {
   category: string;
 }
 
+interface SolutionCategory {
+  id: string;
+  name: string;
+  filter: (solution: Solution) => boolean;
+}
+
 export function Solutions() {
   const [selectedSolution, setSelectedSolution] = useState<Solution | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [filters, setFilters] = useState<SolutionFilterState>({
-    search: '',
-    type: 'all',
-    department: 'all',
-    complexity: 'all',
-    roi: 'all',
-    category: 'all'
-  });
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedFilter, setSelectedFilter] = useState('all');
 
   // Combine agents and workflows into unified solutions
   const allSolutions = useMemo(() => {
@@ -90,27 +88,102 @@ export function Solutions() {
     return [...agents, ...workflows];
   }, []);
 
-  // Filter solutions
-  const filteredSolutions = useMemo(() => {
-    return allSolutions.filter(solution => {
-      const matchesSearch = solution.name.toLowerCase().includes(filters.search.toLowerCase()) ||
-                           solution.description.toLowerCase().includes(filters.search.toLowerCase());
-      
-      const matchesType = filters.type === 'all' || solution.type === filters.type;
-      
-      const matchesDepartment = !filters.department || filters.department === 'all' || 
-                               solution.department.some(dept => dept.toLowerCase().includes(filters.department.toLowerCase()));
-      
-      const matchesComplexity = !filters.complexity || filters.complexity === 'all' || solution.complexity === filters.complexity;
-      
-      const matchesROI = !filters.roi || filters.roi === 'all' || solution.roi === filters.roi;
-      
-      const matchesCategory = !filters.category || filters.category === 'all' || 
-                             solution.category.some(cat => cat.toLowerCase().includes(filters.category.toLowerCase()));
+  // Define solution categories for Netflix-style rows
+  const solutionCategories: SolutionCategory[] = [
+    {
+      id: 'editor-picks',
+      name: '🎯 Editor\'s Picks',
+      filter: (solution) => solution.featured === true
+    },
+    {
+      id: 'trending',
+      name: '🔥 Trending Now',
+      filter: (solution) => solution.trending === true
+    },
+    {
+      id: 'quick-wins',
+      name: '⚡ Quick Wins for You',
+      filter: (solution) => solution.complexity === 'Beginner' && solution.roi === 'High'
+    },
+    {
+      id: 'high-roi',
+      name: '💰 High ROI Solutions',
+      filter: (solution) => solution.roi === 'Very High' || solution.roi === 'High'
+    },
+    {
+      id: 'marketing-automation',
+      name: '📈 Marketing Automation',
+      filter: (solution) => solution.category.some(cat => cat.toLowerCase().includes('marketing')) ||
+                            solution.department.includes('Marketing')
+    },
+    {
+      id: 'sales-workflows',
+      name: '💼 Sales Workflows',
+      filter: (solution) => solution.department.includes('Sales')
+    },
+    {
+      id: 'data-analytics',
+      name: '📊 Data & Analytics',
+      filter: (solution) => solution.category.some(cat => 
+        cat.toLowerCase().includes('data') || 
+        cat.toLowerCase().includes('analytics')
+      )
+    },
+    {
+      id: 'automation-workflows',
+      name: '🤖 Automation Workflows',
+      filter: (solution) => solution.type === 'workflow'
+    },
+    {
+      id: 'ai-agents',
+      name: '🧠 AI Agents',
+      filter: (solution) => solution.type === 'agent'
+    }
+  ];
 
-      return matchesSearch && matchesType && matchesDepartment && matchesComplexity && matchesROI && matchesCategory;
-    });
-  }, [allSolutions, filters]);
+  // Get featured solutions for hero banner
+  const featuredSolutions = useMemo(() => {
+    return allSolutions.filter(solution => solution.featured).slice(0, 3);
+  }, [allSolutions]);
+
+  // Filter solutions based on search and category
+  const filteredSolutions = useMemo(() => {
+    let filtered = allSolutions;
+
+    if (searchQuery) {
+      filtered = filtered.filter(solution =>
+        solution.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        solution.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        solution.category.some(cat => cat.toLowerCase().includes(searchQuery.toLowerCase()))
+      );
+    }
+
+    if (selectedFilter !== 'all') {
+      filtered = filtered.filter(solution => solution.type === selectedFilter);
+    }
+
+    return filtered;
+  }, [allSolutions, searchQuery, selectedFilter]);
+
+  // Get solutions for each category
+  const categorizedSolutions = useMemo(() => {
+    return solutionCategories.map(category => ({
+      ...category,
+      solutions: filteredSolutions.filter(category.filter).slice(0, 10) // Limit to 10 per row
+    }));
+  }, [filteredSolutions, solutionCategories]);
+
+  // Find similar solutions
+  const findSimilarSolutions = (currentSolution: Solution): Solution[] => {
+    return allSolutions
+      .filter(solution => solution.id !== currentSolution.id)
+      .filter(solution => 
+        solution.category.some(cat => currentSolution.category.includes(cat)) ||
+        solution.department.some(dept => currentSolution.department.includes(dept)) ||
+        solution.complexity === currentSolution.complexity
+      )
+      .slice(0, 3);
+  };
 
   const handlePreview = (solution: Solution) => {
     setSelectedSolution(solution);
@@ -129,65 +202,37 @@ export function Solutions() {
     toast.success(`${solution.type === 'agent' ? 'Agent' : 'Workflow'} deployment started!`);
   };
 
-  const resetFilters = () => {
-    setFilters({
-      search: '',
-      type: 'all',
-      department: 'all',
-      complexity: 'all',
-      roi: 'all',
-      category: 'all'
-    });
-  };
-
-  const hasActiveFilters = Object.entries(filters).some(([key, value]) => {
-    if (key === 'search') return value !== '';
-    return value !== 'all';
-  });
-
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <div className="px-6 pt-6 mb-8">
-        <Card className="border-0 bg-gradient-to-r from-primary/20 via-primary/10 to-secondary/20 overflow-hidden">
-          <CardContent className="p-8 lg:p-12">
-            <div className="max-w-4xl">
-              <Badge className="mb-4 bg-accent text-accent-foreground">
-                All-in-One Hub
-              </Badge>
-              <h1 className="text-4xl lg:text-5xl font-bold mb-4">
-                AI Agents & Automation Workflows
-              </h1>
-              <p className="text-lg text-muted-foreground mb-6">
-                Discover the perfect solution for your needs. From intelligent AI agents to powerful automation workflows, 
-                find everything you need to transform your business processes.
-              </p>
-              
-              <SolutionStats solutions={allSolutions} />
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      {/* Hero Banner with Carousel */}
+      {featuredSolutions.length > 0 && (
+        <div className="px-6 pt-6">
+          <SolutionHeroBanner 
+            featuredSolutions={featuredSolutions} 
+            onExplore={handlePreview}
+          />
+        </div>
+      )}
 
-      {/* Search and Filters */}
-      <div className="px-6 mb-6">
-        <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between mb-6">
+      {/* Search and Quick Filters */}
+      <div className="px-6 mb-8">
+        <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
           <div className="flex flex-1 gap-4 max-w-2xl">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
               <Input
-                placeholder="Search solutions..."
-                value={filters.search}
-                onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
+                placeholder="Search agents, workflows, or technologies..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10"
               />
             </div>
-            <Select value={filters.type} onValueChange={(value) => setFilters(prev => ({ ...prev, type: value as any }))}>
+            <Select value={selectedFilter} onValueChange={setSelectedFilter}>
               <SelectTrigger className="w-40">
-                <SelectValue placeholder="Type" />
+                <SelectValue placeholder="Filter" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Types</SelectItem>
+                <SelectItem value="all">All Solutions</SelectItem>
                 <SelectItem value="agent">AI Agents</SelectItem>
                 <SelectItem value="workflow">Workflows</SelectItem>
               </SelectContent>
@@ -195,97 +240,63 @@ export function Solutions() {
           </div>
 
           <div className="flex items-center gap-2">
-            {hasActiveFilters && (
-              <Button variant="outline" onClick={resetFilters} className="text-sm">
-                Clear Filters
-              </Button>
-            )}
-            <div className="flex items-center border rounded-lg p-1">
-              <Button
-                variant={viewMode === 'grid' ? 'default' : 'ghost'}
-                size="sm"
-                onClick={() => setViewMode('grid')}
-                className="p-2"
-              >
-                <Grid className="w-4 h-4" />
-              </Button>
-              <Button
-                variant={viewMode === 'list' ? 'default' : 'ghost'}
-                size="sm"
-                onClick={() => setViewMode('list')}
-                className="p-2"
-              >
-                <List className="w-4 h-4" />
-              </Button>
-            </div>
+            <Badge variant="outline" className="hidden md:flex">
+              <Sparkles className="w-3 h-3 mr-1" />
+              {allSolutions.length} Total Solutions
+            </Badge>
           </div>
         </div>
-
-        <SolutionFilters filters={filters} onFiltersChange={setFilters} />
       </div>
 
-      {/* Results */}
-      <div className="px-6">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold">
-            {filteredSolutions.length} Solutions Found
-          </h2>
-        </div>
+      {/* Netflix-style Category Rows */}
+      <div className="px-6 space-y-8">
+        {categorizedSolutions.map((category) => (
+          <SolutionCategoryRow
+            key={category.id}
+            title={category.name}
+            solutions={category.solutions}
+            onPreview={handlePreview}
+            onCopy={handleCopy}
+            onFavorite={handleFavorite}
+          />
+        ))}
 
-        {/* Solutions Grid */}
-        <div className={`grid gap-6 mb-8 ${
-          viewMode === 'grid' 
-            ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
-            : 'grid-cols-1 lg:grid-cols-2'
-        }`}>
-          {filteredSolutions.map((solution) => {
-            if (solution.type === 'agent') {
-              return (
-                <AgentTemplateCard
-                  key={solution.id}
-                  agent={solution.data}
-                  onPreview={() => handlePreview(solution)}
-                  onCopy={() => handleCopy(solution)}
-                  onFavorite={() => handleFavorite(solution)}
-                  className={viewMode === 'list' ? 'flex-row' : ''}
-                />
-              );
-            } else {
-              return (
-                <WorkflowSolutionCard
-                  key={solution.id}
-                  workflow={solution.data}
-                  onPreview={() => handlePreview(solution)}
-                  onCopy={() => handleCopy(solution)}
-                  onFavorite={() => handleFavorite(solution)}
-                  className={viewMode === 'list' ? 'flex-row' : ''}
-                />
-              );
-            }
-          })}
-        </div>
-
-        {filteredSolutions.length === 0 && (
+        {/* No Results State */}
+        {filteredSolutions.length === 0 && searchQuery && (
           <div className="text-center py-12">
             <div className="text-6xl mb-4">🔍</div>
             <h3 className="text-xl font-semibold mb-2">No solutions found</h3>
             <p className="text-muted-foreground mb-4">
-              Try adjusting your filters or search terms
+              Try searching for different keywords or browse our categories above
             </p>
-            <Button onClick={resetFilters}>Clear all filters</Button>
+            <Button onClick={() => setSearchQuery('')}>
+              Clear search
+            </Button>
           </div>
         )}
       </div>
 
-      {/* Modal */}
+      {/* Solution Modal */}
       {selectedSolution && (
-        <AgentTemplateModal
-          agent={selectedSolution.data}
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          onDeploy={() => handleDeploy(selectedSolution)}
-          onCopy={() => handleCopy(selectedSolution)}
-        />
+        <>
+          <AgentTemplateModal
+            agent={selectedSolution.data}
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            onDeploy={() => handleDeploy(selectedSolution)}
+            onCopy={() => handleCopy(selectedSolution)}
+          />
+          
+          {/* Similar Solutions Component */}
+          <div className="fixed bottom-4 right-4 w-80 z-50">
+            <SimilarSolutions
+              currentSolution={selectedSolution}
+              similarSolutions={findSimilarSolutions(selectedSolution)}
+              onPreview={handlePreview}
+              onCopy={handleCopy}
+            />
+          </div>
+        </>
       )}
     </div>
   );

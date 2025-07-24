@@ -187,6 +187,8 @@ export function AgentTemplateCard({ agent, onPreview, onCopy, onFavorite, classN
           </div>
         </div>
       </CardContent>
+      
+      {/* Similar Agents Section - This will be added by parent component */}
     </Card>
   );
 }
