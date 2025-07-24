@@ -26,7 +26,6 @@ export const AssessmentSection: React.FC<AssessmentSectionProps> = ({
         const value = sectionData[question.id] || (question.type === 'multiselect' ? [] : '');
         
         const commonProps = {
-          key: question.id,
           question,
           value,
           onChange: (newValue: string | string[]) => updateAnswer(section.id, question.id, newValue),
@@ -35,14 +34,14 @@ export const AssessmentSection: React.FC<AssessmentSectionProps> = ({
 
         switch (question.type) {
           case 'radio':
-            return <QuestionRadio {...commonProps} value={value as string} />;
+            return <QuestionRadio key={question.id} {...commonProps} value={value as string} />;
           case 'multiselect':
-            return <QuestionMultiSelect {...commonProps} value={value as string[]} />;
+            return <QuestionMultiSelect key={question.id} {...commonProps} value={value as string[]} />;
           case 'dropdown':
-            return <QuestionDropdown {...commonProps} value={value as string} />;
+            return <QuestionDropdown key={question.id} {...commonProps} value={value as string} />;
           case 'text':
           case 'textarea':
-            return <QuestionText {...commonProps} value={value as string} />;
+            return <QuestionText key={question.id} {...commonProps} value={value as string} />;
           default:
             return null;
         }
