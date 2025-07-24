@@ -136,6 +136,32 @@ export const assessmentSections: AssessmentSectionData[] = [
         description: 'Share any specific obstacles you\'re facing. This helps us provide targeted recommendations.',
         type: 'textarea',
         required: false
+      },
+      {
+        id: 'ai-strategy-owner',
+        text: 'Who is directly responsible for leading and updating your AI strategy?',
+        type: 'radio',
+        required: true,
+        options: [
+          'No clear owner',
+          'Executive sponsor (C-level/founder)',
+          'Designated AI lead/team',
+          'Cross-functional committee',
+          'Outsourced/consultant'
+        ]
+      },
+      {
+        id: 'strategy-review-frequency',
+        text: 'How often is your AI strategy formally reviewed and updated?',
+        type: 'radio',
+        required: true,
+        options: [
+          'Never',
+          'Ad-hoc/as needed',
+          'Annually',
+          'Bi-annually',
+          'Quarterly or more'
+        ]
       }
     ]
   },
@@ -292,6 +318,30 @@ export const assessmentSections: AssessmentSectionData[] = [
           'Formal partnerships (signed agreements)',
           'Multiple partnerships across R&D, vendors, and services'
         ]
+      },
+      {
+        id: 'ai-budget-prioritization',
+        text: 'How is AI prioritized relative to other technology investments in your budget planning?',
+        type: 'radio',
+        required: true,
+        options: [
+          'Top priority, receives dedicated funding',
+          'Equal priority to other tech investments',
+          'Lower priority, funded only if surplus',
+          'Not considered separately in budgeting'
+        ]
+      },
+      {
+        id: 'long-term-financial-plan',
+        text: 'Do you have a long-term financial plan to sustain and scale AI investments?',
+        type: 'radio',
+        required: true,
+        options: [
+          'Yes, covers both short- and long-term',
+          'Yes, but only for the next 12 months',
+          'No, planning is ad hoc/project-based',
+          'No plan in place'
+        ]
       }
     ]
   },
@@ -412,6 +462,66 @@ export const assessmentSections: AssessmentSectionData[] = [
           'Partial logs or model usage documentation',
           'Logs available for critical use-cases',
           'Complete audit trail and explainability system in place'
+        ]
+      },
+      {
+        id: 'data-preprocessing-consistency',
+        text: 'How consistently are your data sets pre-processed and cleaned to be AI-ready?',
+        type: 'radio',
+        required: true,
+        options: [
+          'Rarely pre-processed',
+          'Sometimes, depending on project',
+          'Mostly pre-processed and AI-ready',
+          'Fully standardized and automated'
+        ]
+      },
+      {
+        id: 'analytics-tools-integration',
+        text: 'How advanced and integrated are your analytics tools for AI-related data and projects?',
+        type: 'radio',
+        required: true,
+        options: [
+          'General purpose tools only, little AI capability',
+          'Some AI-optimized tools, limited integration',
+          'AI-optimized tools, moderate integration',
+          'Fully integrated, advanced, and scalable for AI'
+        ]
+      },
+      {
+        id: 'data-lineage-tracking',
+        text: 'Do you track the origin, transformation, and usage of your data (data lineage) for AI models?',
+        type: 'radio',
+        required: true,
+        options: [
+          'No tracking',
+          'Some manual logs/project notes',
+          'Automated tracking for critical projects only',
+          'Comprehensive, automated lineage tracking'
+        ]
+      },
+      {
+        id: 'external-data-validation',
+        text: 'How do you validate the quality and reliability of external data sources for AI?',
+        type: 'radio',
+        required: true,
+        options: [
+          'No checks',
+          'Basic manual checks',
+          'Systematic, documented checks',
+          'Peer review or third-party audit'
+        ]
+      },
+      {
+        id: 'data-anonymization',
+        text: 'Are personal or sensitive data sets anonymized before being used in AI applications?',
+        type: 'radio',
+        required: true,
+        options: [
+          'Never',
+          'Sometimes, depending on project',
+          'Usually, but not always',
+          'Always, as part of a formal policy'
         ]
       }
     ]
