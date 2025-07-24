@@ -6,6 +6,7 @@ import { ReportDashboard } from '@/components/dashboard/ReportDashboard';
 import { UseCases } from '@/components/dashboard/UseCases';
 import { Agents } from '@/components/dashboard/Agents';
 import { Workflows } from '@/components/dashboard/Workflows';
+import { Solutions } from '@/components/dashboard/Solutions';
 import { RoadmapBuilder } from '@/components/dashboard/RoadmapBuilder';
 import { TrainingCenter } from '@/components/dashboard/TrainingCenter';
 import { ResourceHub } from '@/components/dashboard/ResourceHub';
@@ -24,6 +25,7 @@ export default function Dashboard() {
           <Routes>
             <Route path="/report" element={<ReportDashboard />} />
             <Route path="/use-cases" element={<UseCases />} />
+            <Route path="/solutions" element={<Solutions />} />
             <Route path="/agents" element={<Agents />} />
             <Route path="/workflows" element={<Workflows />} />
             <Route path="/roadmap" element={<RoadmapBuilder />} />

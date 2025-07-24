@@ -67,6 +67,13 @@ export function AgentTemplateCard({ agent, onPreview, onCopy, onFavorite, classN
             ))}
           </div>
           
+          {/* Solution Type Badge */}
+          <div className="absolute top-2 left-2 z-10">
+            <Badge className="bg-blue-100 text-blue-800 border-blue-200 text-xs">
+              Agent
+            </Badge>
+          </div>
+
           {/* Status Badges */}
           <div className="absolute top-2 right-2 flex gap-1">
             {agent.featured && (

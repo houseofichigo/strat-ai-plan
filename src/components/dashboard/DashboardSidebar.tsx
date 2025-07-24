@@ -24,7 +24,8 @@ import {
   MessageSquare,
   Settings,
   Crown,
-  Headphones
+  Headphones,
+  Layers
 } from 'lucide-react';
 import { NotificationCenter } from '@/components/notifications/NotificationCenter';
 import { LanguageSelector } from '@/components/language/LanguageSelector';
@@ -32,6 +33,7 @@ import { LanguageSelector } from '@/components/language/LanguageSelector';
 const menuItems = [
   { titleKey: 'nav.reports', url: '/dashboard/report', icon: BarChart3, tourId: 'reports' },
   { titleKey: 'nav.useCases', url: '/dashboard/use-cases', icon: Target },
+  { titleKey: 'nav.solutions', url: '/dashboard/solutions', icon: Layers },
   { titleKey: 'nav.agents', url: '/dashboard/agents', icon: Bot },
   { titleKey: 'nav.workflows', url: '/dashboard/workflows', icon: Workflow },
   { titleKey: 'nav.roadmap', url: '/dashboard/roadmap', icon: Map, tourId: 'roadmap' },
