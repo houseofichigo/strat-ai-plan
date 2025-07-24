@@ -120,6 +120,48 @@ export type Database = {
         }
         Relationships: []
       }
+      notifications: {
+        Row: {
+          action_text: string | null
+          action_url: string | null
+          category: string
+          created_at: string
+          expires_at: string | null
+          id: string
+          is_read: boolean | null
+          message: string
+          title: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          action_text?: string | null
+          action_url?: string | null
+          category?: string
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          message: string
+          title: string
+          type?: string
+          user_id: string
+        }
+        Update: {
+          action_text?: string | null
+          action_url?: string | null
+          category?: string
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          message?: string
+          title?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           company_name: string | null
@@ -208,6 +250,78 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      user_preferences: {
+        Row: {
+          created_at: string
+          id: string
+          language: string
+          notifications_enabled: boolean | null
+          onboarding_completed: boolean | null
+          timezone: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          language?: string
+          notifications_enabled?: boolean | null
+          onboarding_completed?: boolean | null
+          timezone?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          language?: string
+          notifications_enabled?: boolean | null
+          onboarding_completed?: boolean | null
+          timezone?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_progress: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          id: string
+          last_accessed: string | null
+          module_id: string
+          module_type: string
+          progress_percentage: number
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          last_accessed?: string | null
+          module_id: string
+          module_type: string
+          progress_percentage?: number
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          last_accessed?: string | null
+          module_id?: string
+          module_type?: string
+          progress_percentage?: number
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       user_roles: {
         Row: {
