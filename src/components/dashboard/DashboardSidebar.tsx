@@ -15,14 +15,11 @@ import {
 import {
   BarChart3,
   Target,
-  Bot,
-  Workflow,
   Map,
   GraduationCap,
   FileText,
   Shield,
   MessageSquare,
-  Settings,
   Crown,
   Headphones,
   Layers
@@ -34,8 +31,6 @@ const menuItems = [
   { titleKey: 'nav.reports', url: '/dashboard/report', icon: BarChart3, tourId: 'reports' },
   { titleKey: 'nav.useCases', url: '/dashboard/use-cases', icon: Target },
   { titleKey: 'nav.solutions', url: '/dashboard/solutions', icon: Layers },
-  { titleKey: 'nav.agents', url: '/dashboard/agents', icon: Bot },
-  { titleKey: 'nav.workflows', url: '/dashboard/workflows', icon: Workflow },
   { titleKey: 'nav.roadmap', url: '/dashboard/roadmap', icon: Map, tourId: 'roadmap' },
   { titleKey: 'nav.training', url: '/dashboard/training', icon: GraduationCap, tourId: 'training' },
   { titleKey: 'nav.resources', url: '/dashboard/resources', icon: FileText },

@@ -67,6 +67,19 @@ const resources = {
         success: 'Success',
         warning: 'Warning',
         info: 'Information',
+      },
+      // Solutions
+      solutions: {
+        title: 'agents and workflows',
+        allSolutions: 'All Solutions',
+        aiAgents: 'AI Agents',
+        workflows: 'Workflows',
+        totalSolutions: 'Total Solutions',
+        featured: 'Featured Solutions',
+        trending: 'Trending Now',
+        quickWins: 'Quick Wins',
+        highROI: 'High ROI Solutions',
+        newArrivals: 'New Arrivals',
       }
     }
   },

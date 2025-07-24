@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -12,6 +13,7 @@ import { SimilarSolutions } from './solutions/SimilarSolutions';
 import { AgentTemplateModal } from './agents/AgentTemplateModal';
 import { Search, Filter, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
+import { useUserProfile } from '@/hooks/useUserProfile';
 
 export type SolutionType = 'agent' | 'workflow' | 'hybrid';
 
@@ -47,6 +49,8 @@ interface SolutionCategory {
 }
 
 export function Solutions() {
+  const { t } = useTranslation();
+  const { profile } = useUserProfile();
   const [selectedSolution, setSelectedSolution] = useState<Solution | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -88,58 +92,98 @@ export function Solutions() {
     return [...agents, ...workflows];
   }, []);
 
-  // Define solution categories for Netflix-style rows
-  const solutionCategories: SolutionCategory[] = [
-    {
-      id: 'editor-picks',
-      name: '🎯 Editor\'s Picks',
-      filter: (solution) => solution.featured === true
-    },
-    {
-      id: 'trending',
-      name: '🔥 Trending Now',
-      filter: (solution) => solution.trending === true
-    },
-    {
-      id: 'quick-wins',
-      name: '⚡ Quick Wins for You',
-      filter: (solution) => solution.complexity === 'Beginner' && solution.roi === 'High'
-    },
-    {
-      id: 'high-roi',
-      name: '💰 High ROI Solutions',
-      filter: (solution) => solution.roi === 'Very High' || solution.roi === 'High'
-    },
-    {
-      id: 'marketing-automation',
-      name: '📈 Marketing Automation',
-      filter: (solution) => solution.category.some(cat => cat.toLowerCase().includes('marketing')) ||
-                            solution.department.includes('Marketing')
-    },
-    {
-      id: 'sales-workflows',
-      name: '💼 Sales Workflows',
-      filter: (solution) => solution.department.includes('Sales')
-    },
-    {
-      id: 'data-analytics',
-      name: '📊 Data & Analytics',
-      filter: (solution) => solution.category.some(cat => 
-        cat.toLowerCase().includes('data') || 
-        cat.toLowerCase().includes('analytics')
-      )
-    },
-    {
-      id: 'automation-workflows',
-      name: '🤖 Automation Workflows',
-      filter: (solution) => solution.type === 'workflow'
-    },
-    {
-      id: 'ai-agents',
-      name: '🧠 AI Agents',
-      filter: (solution) => solution.type === 'agent'
+  // Helper function to check if solution is relevant to user profile
+  const isRelevantToProfile = (solution: Solution): boolean => {
+    if (!profile) return true;
+    
+    const { department, role, industry, primary_goals } = profile;
+    const solutionCategories = solution.category || [];
+    
+    // Check department relevance
+    const departmentKeywords = {
+      'sales': ['sales', 'crm', 'lead', 'customer', 'revenue', 'pipeline'],
+      'marketing': ['marketing', 'campaign', 'content', 'social', 'email', 'lead generation'],
+      'hr': ['hr', 'recruitment', 'employee', 'talent', 'onboarding', 'hiring'],
+      'finance': ['finance', 'accounting', 'budget', 'invoice', 'payment', 'financial'],
+      'operations': ['operations', 'process', 'workflow', 'efficiency', 'automation', 'logistics'],
+      'it': ['it', 'tech', 'development', 'infrastructure', 'security', 'software'],
+      'customer service': ['support', 'service', 'ticket', 'help', 'customer', 'satisfaction'],
+    };
+    
+    const relevantKeywords = departmentKeywords[department?.toLowerCase()] || [];
+    const hasRelevantContent = relevantKeywords.some(keyword => 
+      solution.name.toLowerCase().includes(keyword) ||
+      solution.description.toLowerCase().includes(keyword) ||
+      solutionCategories.some(cat => cat.toLowerCase().includes(keyword)) ||
+      solution.department.some(dept => dept.toLowerCase().includes(keyword))
+    );
+    
+    return hasRelevantContent;
+  };
+
+  // Define solution categories for Netflix-style rows with profile-based filtering
+  const solutionCategories: SolutionCategory[] = useMemo(() => {
+    const baseCategories = [
+      {
+        id: 'for-you',
+        name: profile ? `🎯 Recommended for ${profile.role} in ${profile.department}` : '🎯 Recommended for You',
+        filter: (solution: Solution) => isRelevantToProfile(solution)
+      },
+      {
+        id: 'editor-picks',
+        name: '⭐ Editor\'s Picks',
+        filter: (solution: Solution) => solution.featured === true
+      },
+      {
+        id: 'quick-wins',
+        name: '⚡ Quick Wins',
+        filter: (solution: Solution) => solution.complexity === 'Beginner' && isRelevantToProfile(solution)
+      },
+      {
+        id: 'high-roi',
+        name: '💰 High ROI Solutions',
+        filter: (solution: Solution) => (solution.roi === 'Very High' || solution.roi === 'High') && isRelevantToProfile(solution)
+      },
+      {
+        id: 'trending',
+        name: '🔥 Trending Now',
+        filter: (solution: Solution) => solution.trending === true
+      }
+    ];
+
+    // Add department-specific categories only if relevant to user
+    if (profile?.department === 'Sales' || profile?.department === 'sales') {
+      baseCategories.push({
+        id: 'sales-workflows',
+        name: '💼 Sales Automation',
+        filter: (solution) => solution.department.some(dept => dept.toLowerCase().includes('sales'))
+      });
     }
-  ];
+
+    if (profile?.department === 'Marketing' || profile?.department === 'marketing') {
+      baseCategories.push({
+        id: 'marketing-automation',
+        name: '📈 Marketing Automation',
+        filter: (solution) => solution.department.some(dept => dept.toLowerCase().includes('marketing'))
+      });
+    }
+
+    // Add general categories at the end
+    baseCategories.push(
+      {
+        id: 'ai-agents',
+        name: '🧠 AI Agents',
+        filter: (solution) => solution.type === 'agent'
+      },
+      {
+        id: 'automation-workflows',
+        name: '🤖 Automation Workflows',
+        filter: (solution) => solution.type === 'workflow'
+      }
+    );
+
+    return baseCategories;
+  }, [profile]);
 
   // Get featured solutions for hero banner
   const featuredSolutions = useMemo(() => {
@@ -221,7 +265,7 @@ export function Solutions() {
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
               <Input
-                placeholder="Search agents, workflows, or technologies..."
+                placeholder={`Search ${t('solutions.title')}...`}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10"
@@ -232,9 +276,9 @@ export function Solutions() {
                 <SelectValue placeholder="Filter" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Solutions</SelectItem>
-                <SelectItem value="agent">AI Agents</SelectItem>
-                <SelectItem value="workflow">Workflows</SelectItem>
+                <SelectItem value="all">{t('solutions.allSolutions')}</SelectItem>
+                <SelectItem value="agent">{t('solutions.aiAgents')}</SelectItem>
+                <SelectItem value="workflow">{t('solutions.workflows')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -242,8 +286,13 @@ export function Solutions() {
           <div className="flex items-center gap-2">
             <Badge variant="outline" className="hidden md:flex">
               <Sparkles className="w-3 h-3 mr-1" />
-              {allSolutions.length} Total Solutions
+              {allSolutions.length} {t('solutions.totalSolutions')}
             </Badge>
+            {profile && (
+              <Badge variant="secondary" className="hidden md:flex">
+                {profile.department} • {profile.role}
+              </Badge>
+            )}
           </div>
         </div>
       </div>
