@@ -48,10 +48,10 @@ export function Solutions() {
   const [filters, setFilters] = useState<SolutionFilterState>({
     search: '',
     type: 'all',
-    department: '',
-    complexity: '',
-    roi: '',
-    category: ''
+    department: 'all',
+    complexity: 'all',
+    roi: 'all',
+    category: 'all'
   });
 
   // Combine agents and workflows into unified solutions
@@ -98,14 +98,14 @@ export function Solutions() {
       
       const matchesType = filters.type === 'all' || solution.type === filters.type;
       
-      const matchesDepartment = !filters.department || 
+      const matchesDepartment = !filters.department || filters.department === 'all' || 
                                solution.department.some(dept => dept.toLowerCase().includes(filters.department.toLowerCase()));
       
-      const matchesComplexity = !filters.complexity || solution.complexity === filters.complexity;
+      const matchesComplexity = !filters.complexity || filters.complexity === 'all' || solution.complexity === filters.complexity;
       
-      const matchesROI = !filters.roi || solution.roi === filters.roi;
+      const matchesROI = !filters.roi || filters.roi === 'all' || solution.roi === filters.roi;
       
-      const matchesCategory = !filters.category || 
+      const matchesCategory = !filters.category || filters.category === 'all' || 
                              solution.category.some(cat => cat.toLowerCase().includes(filters.category.toLowerCase()));
 
       return matchesSearch && matchesType && matchesDepartment && matchesComplexity && matchesROI && matchesCategory;
@@ -133,14 +133,17 @@ export function Solutions() {
     setFilters({
       search: '',
       type: 'all',
-      department: '',
-      complexity: '',
-      roi: '',
-      category: ''
+      department: 'all',
+      complexity: 'all',
+      roi: 'all',
+      category: 'all'
     });
   };
 
-  const hasActiveFilters = Object.values(filters).some(value => value !== '' && value !== 'all');
+  const hasActiveFilters = Object.entries(filters).some(([key, value]) => {
+    if (key === 'search') return value !== '';
+    return value !== 'all';
+  });
 
   return (
     <div className="min-h-screen bg-background">
