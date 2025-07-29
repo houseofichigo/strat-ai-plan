@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FormData } from '@/data/assessmentData';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -30,6 +31,7 @@ interface AssessmentResultsProps {
 export const AssessmentResults: React.FC<AssessmentResultsProps> = ({ formData }) => {
   const [showConfetti, setShowConfetti] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setShowConfetti(true);
@@ -37,59 +39,75 @@ export const AssessmentResults: React.FC<AssessmentResultsProps> = ({ formData }
     return () => clearTimeout(timer);
   }, []);
 
-  const handleDownloadReport = () => {
-    // Implementation for downloading PDF report
-    toast({
-      title: "Report Downloaded!",
-      description: "Your AI Readiness Report has been saved to your downloads.",
-    });
-    
-    if (process.env.NODE_ENV === 'development') {
-      console.log('Downloading report...', formData);
+  const handleDownloadReport = useCallback(() => {
+    try {
+      // Implementation for downloading PDF report
+      toast({
+        title: "Report Downloaded!",
+        description: "Your AI Readiness Report has been saved to your downloads.",
+      });
+      
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Downloading report...', formData);
+      }
+      // TODO: Implement PDF generation
+    } catch (error) {
+      toast({
+        title: "Download Failed",
+        description: "Unable to download report. Please try again.",
+        variant: "destructive"
+      });
     }
-    // TODO: Implement PDF generation
-  };
+  }, [formData, toast]);
 
-  const handleEmailReport = () => {
-    // Implementation for emailing report
-    toast({
-      title: "Report Sent!",
-      description: "Your personalized report is on its way to your inbox.",
-    });
-    
-    if (process.env.NODE_ENV === 'development') {
-      console.log('Emailing report...', formData);
+  const handleEmailReport = useCallback(() => {
+    try {
+      // Implementation for emailing report
+      toast({
+        title: "Report Sent!",
+        description: "Your personalized report is on its way to your inbox.",
+      });
+      
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Emailing report...', formData);
+      }
+      // TODO: Implement email service
+    } catch (error) {
+      toast({
+        title: "Email Failed",
+        description: "Unable to send report. Please try again.",
+        variant: "destructive"
+      });
     }
-    // TODO: Implement email service
-  };
+  }, [formData, toast]);
 
-  const handleExploreReport = () => {
-    window.location.href = '/dashboard?tab=report';
-  };
+  const handleExploreReport = useCallback(() => {
+    navigate('/dashboard/report');
+  }, [navigate]);
 
-  const handleDiscoverUseCases = () => {
-    window.location.href = '/dashboard?tab=use-cases';
-  };
+  const handleDiscoverUseCases = useCallback(() => {
+    navigate('/dashboard/use-cases');
+  }, [navigate]);
 
-  const handleExploreAgents = () => {
-    window.location.href = '/dashboard?tab=agents';
-  };
+  const handleExploreAgents = useCallback(() => {
+    navigate('/dashboard/solutions');
+  }, [navigate]);
 
-  const handleTrainingCenter = () => {
-    window.location.href = '/dashboard?tab=training';
-  };
+  const handleTrainingCenter = useCallback(() => {
+    navigate('/dashboard/training');
+  }, [navigate]);
 
-  const handlePlayground = () => {
-    window.location.href = '/dashboard?tab=playground';
-  };
+  const handlePlayground = useCallback(() => {
+    navigate('/dashboard/playground');
+  }, [navigate]);
 
-  const handleRoadmapBuilder = () => {
-    window.location.href = '/dashboard?tab=roadmap';
-  };
+  const handleRoadmapBuilder = useCallback(() => {
+    navigate('/dashboard/roadmap');
+  }, [navigate]);
 
-  const handleContactExperts = () => {
-    window.location.href = '/contact';
-  };
+  const handleContactExperts = useCallback(() => {
+    navigate('/contact');
+  }, [navigate]);
 
   const nextStepCards = [
     {

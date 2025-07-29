@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -15,6 +15,7 @@ import { WorkflowTemplateModal } from './solutions/WorkflowTemplateModal';
 import { Search, Filter, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
 import { useUserProfile } from '@/hooks/useUserProfile';
+import { useDebounce } from '@/hooks/useDebounce';
 
 export type SolutionType = 'agent' | 'workflow' | 'hybrid';
 
@@ -56,6 +57,7 @@ export function Solutions() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
+  const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
   // Combine agents and workflows into unified solutions
   const allSolutions = useMemo(() => {
@@ -195,11 +197,11 @@ export function Solutions() {
   const filteredSolutions = useMemo(() => {
     let filtered = allSolutions;
 
-    if (searchQuery) {
+    if (debouncedSearchQuery) {
       filtered = filtered.filter(solution =>
-        solution.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        solution.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        solution.category.some(cat => cat.toLowerCase().includes(searchQuery.toLowerCase()))
+        solution.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase()) ||
+        solution.description.toLowerCase().includes(debouncedSearchQuery.toLowerCase()) ||
+        solution.category.some(cat => cat.toLowerCase().includes(debouncedSearchQuery.toLowerCase()))
       );
     }
 
@@ -208,7 +210,7 @@ export function Solutions() {
     }
 
     return filtered;
-  }, [allSolutions, searchQuery, selectedFilter]);
+  }, [allSolutions, debouncedSearchQuery, selectedFilter]);
 
   // Get solutions for each category
   const categorizedSolutions = useMemo(() => {
@@ -218,8 +220,8 @@ export function Solutions() {
     }));
   }, [filteredSolutions, solutionCategories]);
 
-  // Find similar solutions
-  const findSimilarSolutions = (currentSolution: Solution): Solution[] => {
+  // Find similar solutions - memoized for performance
+  const findSimilarSolutions = useCallback((currentSolution: Solution): Solution[] => {
     return allSolutions
       .filter(solution => solution.id !== currentSolution.id)
       .filter(solution => 
@@ -228,24 +230,24 @@ export function Solutions() {
         solution.complexity === currentSolution.complexity
       )
       .slice(0, 3);
-  };
+  }, [allSolutions]);
 
-  const handlePreview = (solution: Solution) => {
+  const handlePreview = useCallback((solution: Solution) => {
     setSelectedSolution(solution);
     setIsModalOpen(true);
-  };
+  }, []);
 
-  const handleCopy = (solution: Solution) => {
+  const handleCopy = useCallback((solution: Solution) => {
     toast.success(`${solution.type === 'agent' ? 'Agent' : 'Workflow'} added to roadmap!`);
-  };
+  }, []);
 
-  const handleFavorite = (solution: Solution) => {
+  const handleFavorite = useCallback((solution: Solution) => {
     toast.success(`${solution.name} added to favorites!`);
-  };
+  }, []);
 
-  const handleDeploy = (solution: Solution) => {
+  const handleDeploy = useCallback((solution: Solution) => {
     toast.success(`${solution.type === 'agent' ? 'Agent' : 'Workflow'} deployment started!`);
-  };
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
