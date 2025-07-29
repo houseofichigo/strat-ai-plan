@@ -253,7 +253,7 @@ export function Solutions() {
     <div className="min-h-screen bg-background">
       {/* Hero Banner with Carousel */}
       {featuredSolutions.length > 0 && (
-        <div className="px-6 pt-6">
+        <div className="px-4 md:px-6 pt-4 md:pt-6">
           <SolutionHeroBanner 
             featuredSolutions={featuredSolutions} 
             onExplore={handlePreview}
@@ -262,9 +262,9 @@ export function Solutions() {
       )}
 
       {/* Search and Quick Filters */}
-      <div className="px-6 mb-8">
-        <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-          <div className="flex flex-1 gap-4 max-w-2xl">
+      <div className="px-4 md:px-6 mb-6 md:mb-8">
+        <div className="flex flex-col gap-4 items-stretch md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col sm:flex-row gap-4 flex-1 max-w-2xl">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
               <Input
@@ -275,7 +275,7 @@ export function Solutions() {
               />
             </div>
             <Select value={selectedFilter} onValueChange={setSelectedFilter}>
-              <SelectTrigger className="w-40">
+              <SelectTrigger className="w-full sm:w-40">
                 <SelectValue placeholder="Filter" />
               </SelectTrigger>
               <SelectContent>
@@ -286,13 +286,13 @@ export function Solutions() {
             </Select>
           </div>
 
-          <div className="flex items-center gap-2">
-            <Badge variant="outline" className="hidden md:flex">
+          <div className="flex flex-wrap items-center gap-2 justify-center sm:justify-end">
+            <Badge variant="outline" className="flex items-center">
               <Sparkles className="w-3 h-3 mr-1" />
               {allSolutions.length} {t('solutions.totalSolutions')}
             </Badge>
             {profile && (
-              <Badge variant="secondary" className="hidden md:flex">
+              <Badge variant="secondary" className="hidden sm:flex">
                 {profile.department} • {profile.role}
               </Badge>
             )}
@@ -301,7 +301,7 @@ export function Solutions() {
       </div>
 
       {/* Netflix-style Category Rows */}
-      <div className="px-6 space-y-8">
+      <div className="px-4 md:px-6 space-y-6 md:space-y-8">
         {categorizedSolutions.map((category) => (
           <SolutionCategoryRow
             key={category.id}
@@ -314,11 +314,11 @@ export function Solutions() {
         ))}
 
         {/* No Results State */}
-        {filteredSolutions.length === 0 && searchQuery && (
+        {filteredSolutions.length === 0 && debouncedSearchQuery && (
           <div className="text-center py-12">
             <div className="text-6xl mb-4">🔍</div>
             <h3 className="text-xl font-semibold mb-2">No solutions found</h3>
-            <p className="text-muted-foreground mb-4">
+            <p className="text-muted-foreground mb-4 max-w-md mx-auto">
               Try searching for different keywords or browse our categories above
             </p>
             <Button onClick={() => setSearchQuery('')}>

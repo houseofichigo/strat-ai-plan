@@ -275,7 +275,7 @@ export const AssessmentResults: React.FC<AssessmentResultsProps> = ({ formData }
         {/* Next Steps Grid */}
         <div className="mb-12">
           <h2 className="text-3xl font-bold text-center mb-8">What's Next? Your AI Toolkit Awaits</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {nextStepCards.map((card, index) => (
               <Card 
                 key={card.id} 
@@ -335,7 +335,7 @@ export const AssessmentResults: React.FC<AssessmentResultsProps> = ({ formData }
         </Card>
 
         {/* Support & Trust Section */}
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <Card className="border-l-4 border-l-primary">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">

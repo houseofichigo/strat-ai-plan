@@ -36,9 +36,9 @@ export function SolutionCategoryRow({
         )}
       </div>
       
-      <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-muted scrollbar-track-background">
+      <div className="flex gap-3 md:gap-4 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-muted scrollbar-track-background">
         {solutions.map((solution) => (
-          <div key={solution.id} className="flex-none w-80">
+          <div key={solution.id} className="flex-none w-72 md:w-80">
             {solution.type === 'agent' ? (
               <AgentTemplateCard
                 agent={solution.data}
