@@ -84,6 +84,13 @@ export default {
 				'gradient-hero': 'var(--gradient-hero)',
 				'gradient-card': 'var(--gradient-card)'
 			},
+			backgroundColor: {
+				'glass-primary': 'var(--glass-primary)',
+				'glass-secondary': 'var(--glass-secondary)',
+				'overlay-dark': 'var(--overlay-dark)',
+				'overlay-light': 'var(--overlay-light)',
+				'hover-overlay': 'var(--hover-overlay)'
+			},
 			boxShadow: {
 				'soft': 'var(--shadow-soft)',
 				'medium': 'var(--shadow-medium)',

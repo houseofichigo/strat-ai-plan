@@ -162,12 +162,12 @@ export function TrainingCenter() {
                           </div>
 
                           {/* Hover Actions */}
-                          <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
-                            <Button size="sm" variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20" onClick={() => handlePreview(course)}>
+                          <div className="absolute inset-0 bg-overlay-dark opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
+                            <Button size="sm" variant="overlay" onClick={() => handlePreview(course)}>
                               <Play className="w-4 h-4 mr-1" />
                               Preview
                             </Button>
-                            <Button size="sm" variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20" onClick={() => handleAddToPath(course)}>
+                            <Button size="sm" variant="overlay" onClick={() => handleAddToPath(course)}>
                               <Plus className="w-4 h-4 mr-1" />
                               Add
                             </Button>

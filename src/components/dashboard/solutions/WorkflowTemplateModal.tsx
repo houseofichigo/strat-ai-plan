@@ -44,7 +44,7 @@ export function WorkflowTemplateModal({ workflow, isOpen, onClose, onDeploy, onC
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto" aria-describedby="workflow-description">
         <DialogHeader>
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-4">
@@ -55,6 +55,7 @@ export function WorkflowTemplateModal({ workflow, isOpen, onClose, onDeploy, onC
               </div>
               <div>
                 <DialogTitle className="text-2xl mb-2">{workflow.title}</DialogTitle>
+                <div id="workflow-description" className="text-muted-foreground mb-2">{workflow.description}</div>
                 <div className="flex gap-2">
                   <Badge className={cn("text-xs", getComplexityColor(workflow.complexity))}>
                     {workflow.complexity}

@@ -45,7 +45,7 @@ export function AgentTemplateModal({ agent, isOpen, onClose, onDeploy, onCopy }:
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto" aria-describedby="agent-description">
         <DialogHeader>
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-4">
@@ -56,6 +56,7 @@ export function AgentTemplateModal({ agent, isOpen, onClose, onDeploy, onCopy }:
               </div>
               <div>
                 <DialogTitle className="text-2xl mb-2">{agent.name}</DialogTitle>
+                <div id="agent-description" className="text-muted-foreground mb-2">{agent.shortDescription}</div>
                 <div className="flex gap-2">
                   <Badge className={cn("text-xs", getComplexityColor(agent.complexity))}>
                     {agent.complexity}

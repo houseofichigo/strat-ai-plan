@@ -105,7 +105,7 @@ export function RoadmapDetailModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto" aria-describedby="roadmap-item-description">
         <DialogHeader className="space-y-4">
           <div className="flex items-start justify-between">
             <div className="flex items-start gap-4 flex-1">
@@ -114,7 +114,7 @@ export function RoadmapDetailModal({
               </div>
               <div className="flex-1">
                 <DialogTitle className="text-2xl font-bold mb-2">{item.title}</DialogTitle>
-                <p className="text-muted-foreground mb-3">{item.description}</p>
+                <p id="roadmap-item-description" className="text-muted-foreground mb-3">{item.description}</p>
                 <div className="flex flex-wrap gap-2">
                   <Badge variant="outline" className={cn("border", getCategoryColor(item.category))}>
                     {item.category}
