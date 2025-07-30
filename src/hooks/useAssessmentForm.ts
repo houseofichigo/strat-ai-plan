@@ -1,23 +1,40 @@
 import { useState, useEffect, useCallback } from 'react';
 import { assessmentSections, FormData } from '@/data/assessmentData';
+import { useAssessmentStorage } from './useAssessmentStorage';
 
 export const useAssessmentForm = () => {
   const [formData, setFormData] = useState<FormData>({});
   const [errors, setErrors] = useState<{[key: string]: string}>({});
   const [isAutoSaving, setIsAutoSaving] = useState(false);
+  const {
+    currentAssessmentId,
+    createAssessment,
+    saveResponse,
+    saveFormData,
+    loadAssessment,
+    completeAssessment,
+    setCurrentAssessmentId
+  } = useAssessmentStorage();
 
-  // Auto-save functionality
-  const saveToStorage = useCallback((data: FormData) => {
+  // Auto-save functionality (both local and Supabase)
+  const saveToStorage = useCallback(async (data: FormData) => {
     try {
+      // Save to localStorage as backup
       localStorage.setItem('assessment_progress', JSON.stringify({
         data,
         timestamp: Date.now(),
-        version: '1.0'
+        version: '1.0',
+        assessmentId: currentAssessmentId
       }));
+
+      // Save to Supabase if we have an assessment ID
+      if (currentAssessmentId) {
+        await saveFormData(currentAssessmentId, data);
+      }
     } catch (error) {
       console.warn('Failed to save assessment progress:', error);
     }
-  }, []);
+  }, [currentAssessmentId, saveFormData]);
 
   // Load saved progress on mount
   useEffect(() => {
@@ -48,7 +65,7 @@ export const useAssessmentForm = () => {
     }
   }, [formData, saveToStorage]);
 
-  const updateAnswer = useCallback((sectionId: string, questionId: string, value: string | string[]) => {
+  const updateAnswer = useCallback(async (sectionId: string, questionId: string, value: string | string[]) => {
     setFormData(prev => ({
       ...prev,
       [sectionId]: {
@@ -66,7 +83,12 @@ export const useAssessmentForm = () => {
         return newErrors;
       });
     }
-  }, [errors]);
+
+    // Save individual response to Supabase
+    if (currentAssessmentId) {
+      await saveResponse(currentAssessmentId, sectionId, questionId, value);
+    }
+  }, [errors, currentAssessmentId, saveResponse]);
 
   const validateSection = useCallback((sectionIndex: number): boolean => {
     const section = assessmentSections[sectionIndex];
@@ -101,7 +123,8 @@ export const useAssessmentForm = () => {
     setFormData({});
     setErrors({});
     localStorage.removeItem('assessment_progress');
-  }, []);
+    setCurrentAssessmentId(null);
+  }, [setCurrentAssessmentId]);
 
   const getCompletionStats = useCallback(() => {
     const totalQuestions = assessmentSections.reduce((total, section) => 
@@ -125,6 +148,22 @@ export const useAssessmentForm = () => {
     };
   }, [formData]);
 
+  // Initialize assessment (create new or load existing)
+  const initializeAssessment = useCallback(async () => {
+    if (!currentAssessmentId) {
+      const newId = await createAssessment();
+      if (newId) {
+        setCurrentAssessmentId(newId);
+      }
+    }
+  }, [currentAssessmentId, createAssessment, setCurrentAssessmentId]);
+
+  // Submit completed assessment
+  const submitAssessment = useCallback(async () => {
+    if (!currentAssessmentId) return false;
+    return await completeAssessment(currentAssessmentId, formData);
+  }, [currentAssessmentId, completeAssessment, formData]);
+
   return {
     formData,
     updateAnswer,
@@ -134,6 +173,17 @@ export const useAssessmentForm = () => {
     errors,
     isAutoSaving,
     clearProgress,
-    getCompletionStats
+    getCompletionStats,
+    initializeAssessment,
+    submitAssessment,
+    currentAssessmentId,
+    loadAssessment: async (id: string) => {
+      const data = await loadAssessment(id);
+      if (data) {
+        setFormData(data);
+        setCurrentAssessmentId(id);
+      }
+      return data;
+    }
   };
 };
